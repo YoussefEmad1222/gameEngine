@@ -22,12 +22,12 @@ export class chess extends Game {
       const y = id.charAt(1);
       const piece = board[x][y];
       console.log(piece);
-      const moves = this.getMoves(piece, x, y);
-      console.log(moves);
-      // if (piece != "") {
-      //   const moves = this.getMoves(piece, x, y);
-      //   console.log(moves);
-      //   moves.forEach((element) => {
+      
+      
+       if (piece != "") {
+        const moves = this.getMoves(piece, x, y);
+        console.log(moves);
+      /  moves.forEach((element) => {
       //     const cell = document.getElementById(element);
       //     cell.style.backgroundColor = "green";
       //   });
@@ -41,7 +41,7 @@ export class chess extends Game {
   }
   Init() {
     this.clicked = false;
-    console.log("init", this.state);
+   
     const board = this.drawBoard(8, 8, "chess");
     const board2 = [
       ["♜B", "♞B", "♝B", "♛B", "♚B", "♝B", "♞B", "♜B"],
@@ -62,12 +62,8 @@ export class chess extends Game {
       });
       return React.cloneElement(row, {}, clonedCells);
     });
-    console.log(clonedrows);
-
-    console.log(board2);
     this.setState({ board: board2 });
     this.state.board = board2;
-    console.log(this.state);
     return (
       <div>
         <h1 style={{ textAlign: "center" }}> Chess</h1>
@@ -209,5 +205,207 @@ export class chess extends Game {
       }
     }
     return moves;
+  }
+  knightMoves(x, y) {
+    const moves = [];
+    x = parseInt(x);
+    y = parseInt(y);
+    if (x + 1 < 8 && y - 2 >= 0) {
+      const cell = document.getElementById(x + 1 + "" + (y - 2));
+      if (
+        cell.innerText == "" ||
+        cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)
+      ) {
+        moves.push(x + 1 + "" + (y - 2));
+      }
+    }
+    if (x - 1 >= 0 && y - 2 >= 0) {
+      const cell = document.getElementById(x - 1 + "" + (y - 2));
+      if (
+        cell.innerText == "" ||
+        cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)
+      ) {
+        moves.push(x - 1 + "" + (y - 2));
+      }
+    }
+    if (x - 2 >= 0 && y - 1 >= 0) {
+      const cell = document.getElementById(x - 2 + "" + (y - 1));
+      if (
+        cell.innerText == "" ||
+        cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)
+      ) {
+        moves.push(x - 2 + "" + (y - 1));
+      }
+    }
+    if (x + 2 < 8 && y - 1 >= 0) {
+      const cell = document.getElementById(x + 2 + "" + (y - 1));
+      if (
+        cell.innerText == "" ||
+        cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)
+      ) {
+        moves.push(x + 2 + "" + (y - 1));
+      }
+    }
+    if (x + 2 < 8 && y + 1 < 8) {
+      const cell = document.getElementById(x + 2 + "" + (y + 1));
+      if (
+        cell.innerText == "" ||
+        cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)
+      ) {
+        moves.push(x + 2 + "" + (y + 1));
+      }
+    }
+    if (x - 2 >= 0 && y + 1 < 8) {
+      const cell = document.getElementById(x - 2 + "" + (y + 1));
+      if (
+        cell.innerText == "" ||
+        cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)
+      ) {
+        moves.push(x - 2 + "" + (y + 1));
+      }
+    }
+    if (x - 1 >= 0 && y + 2 < 8) {
+      const cell = document.getElementById(x - 1 + "" + (y + 2));
+      if (
+        cell.innerText == "" ||
+        cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)
+      ) {
+        moves.push(x - 1 + "" + (y + 2));
+      }
+    }
+    if (x + 1 < 8 && y + 2 < 8) {
+      const cell = document.getElementById(x + 1 + "" + (y + 2));
+      if (
+        cell.innerText == "" ||
+        cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)
+      ) {
+        moves.push(x + 1 + "" + (y + 2));
+      }
+    }
+    return moves;
+  }
+  bishopMoves(x, y) {
+    const moves = [];
+    x = parseInt(x);
+    y = parseInt(y);
+    for (let i = x + 1, j = y + 1; i < 8 && j < 8; i++, j++) {
+      const cell = document.getElementById(i + "" + j);
+      if (cell.innerText == "") {
+        moves.push(i + "" + j);
+      } else {
+        if (cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)) {
+          moves.push(i + "" + j);
+        }
+        break;
+      }
+    }
+    for (let i = x - 1, j = y + 1; i >= 0 && j < 8; i--, j++) {
+      const cell = document.getElementById(i + "" + j);
+      if (cell.innerText == "") {
+        moves.push(i + "" + j);
+      } else {
+        if (cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)) {
+          moves.push(i + "" + j);
+        }
+        break;
+      }
+    }
+    for (let i = x + 1, j = y - 1; i < 8 && j >= 0; i++, j--) {
+      const cell = document.getElementById(i + "" + j);
+      if (cell.innerText == "") {
+        moves.push(i + "" + j);
+      } else {
+        if (cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)) {
+          moves.push(i + "" + j);
+        }
+        break;
+      }
+    }
+    for (let i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--) {
+      const cell = document.getElementById(i + "" + j);
+      if (cell.innerText == "") {
+        moves.push(i + "" + j);
+      } else {
+        if (cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)) {
+          moves.push(i + "" + j);
+        }
+        break;
+      }
+    }
+    return moves;
+  }
+  queenMoves(x, y) {
+    const moves = [];
+    moves.push(...this.rookMoves(x, y));
+    moves.push(...this.bishopMoves(x, y));
+    return moves;
+  }
+  kingMoves(x, y) {
+    const moves = [];
+    x = parseInt(x);
+    y = parseInt(y);
+    if (x + 1 < 8) {
+      const cell = document.getElementById(x + 1 + "" + y);
+      if (
+        cell.innerText == "" ||
+        cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)
+      ) {
+        moves.push(x + 1 + "" + y);
+      }
+    }
+    if (x - 1 >= 0) {
+      const cell = document.getElementById(x - 1 + "" + y);
+      if (
+        cell.innerText == "" ||
+        cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)
+      ) {
+        moves.push(x - 1 + "" + y);
+      }
+    }
+    if (y + 1 < 8) {
+      const cell = document.getElementById(x + "" + (y + 1));
+      if (
+        cell.innerText == "" ||
+        cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)
+      ) {
+        moves.push(x + "" + (y + 1));
+      }
+    }
+    if (y - 1 >= 0) {
+      const cell = document.getElementById(x + "" + (y - 1));
+      if (
+        cell.innerText == "" ||
+        cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)
+      ) {
+        moves.push(x + "" + (y - 1));
+      }
+    }
+    if (x + 1 < 8 && y + 1 < 8) {
+      const cell = document.getElementById(x + 1 + "" + (y + 1));
+      if (
+        cell.innerText == "" ||
+        cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)
+      ) {
+        moves.push(x + 1 + "" + (y + 1));
+      }
+    }
+    if (x + 1 < 8 && y - 1 >= 0) {
+      const cell = document.getElementById(x + 1 + "" + (y - 1));
+      if (
+        cell.innerText == "" ||
+        cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)
+      ) {
+        moves.push(x + 1 + "" + (y - 1));
+      }
+    }
+    if (x - 1 >= 0 && y + 1 < 8) {
+      const cell = document.getElementById(x - 1 + "" + (y + 1));
+      if (
+        cell.innerText == "" ||
+        cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)
+      ) {
+        moves.push(x - 1 + "" + (y + 1));
+      }
+    }
   }
 }
