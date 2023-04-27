@@ -5,6 +5,8 @@ import React from "react";
 import "./chess.css";
 export class chess extends Game {
   clicked = false;
+  moves = [];
+  prevID = "";
   constructor(props) {
     super(props);
     this.state = {
@@ -14,34 +16,51 @@ export class chess extends Game {
   }
   controller(state, move) {
     if (!this.clicked) {
-      //this.clicked = true;
       this.state = state;
       const board = this.state.board;
       const id = move.target.id;
-      const x = id.charAt(0);
-      const y = id.charAt(1);
+      const x = move.target.id.charAt(0);
+      const y = move.target.id.charAt(1);
       const piece = board[x][y];
-      console.log(piece);
-      
-      
-       if (piece != "") {
-        const moves = this.getMoves(piece, x, y);
-        console.log(moves);
-      /  moves.forEach((element) => {
-      //     const cell = document.getElementById(element);
-      //     cell.style.backgroundColor = "green";
-      //   });
-      // }
+      if (
+        piece != "" &&
+        ((piece.charAt(1) == "W" && this.state.xIsNext) ||
+          (piece.charAt(1) == "B" && !this.state.xIsNext))
+      ) {
+        this.clicked = true;
+        this.moves = this.getMoves(piece, x, y);
+        this.prevID = id;
+      }
+    } else {
+      if (this.moves.includes(move.target.id)) {
+        const prevCell = document.getElementById(this.prevID);
+        const cell = document.getElementById(move.target.id);
+        cell.innerText = prevCell.innerText;
+        prevCell.innerText = "";
+        const board = this.state.board;
+        board[move.target.id.charAt(0)][move.target.id.charAt(1)] =
+          board[this.prevID.charAt(0)][this.prevID.charAt(1)];
+        board[this.prevID.charAt(0)][this.prevID.charAt(1)] = "";
+        state.board = board;
+        this.state.xIsNext = !this.state.xIsNext;
+        this.drawer(state);
+      }
+      this.clicked = false;
+      this.prevID = "";
+      this.moves = [];
     }
   }
   drawer(state) {
     if (state == null) {
       return this.Init();
     }
+    const cells = document.getElementsByClassName("cellchess");
+    for (let i = 0; i < cells.length; i++) {
+      cells[i].innerText = state.board[cells[i].id.charAt(0)][cells[i].id.charAt(1)];
+    }
   }
   Init() {
     this.clicked = false;
-   
     const board = this.drawBoard(8, 8, "chess");
     const board2 = [
       ["♜B", "♞B", "♝B", "♛B", "♚B", "♝B", "♞B", "♜B"],
@@ -62,7 +81,6 @@ export class chess extends Game {
       });
       return React.cloneElement(row, {}, clonedCells);
     });
-    this.setState({ board: board2 });
     this.state.board = board2;
     return (
       <div>
@@ -105,17 +123,17 @@ export class chess extends Game {
       moves.push(x + "" + y);
     } else {
       if (x + 1 < 8) {
-        const cell1 = document.getElementById(x + "" + y);
+        const cell1 = document.getElementById(x + 1 + "" + y);
         if (cell1.innerText == "") {
-          moves.push(x + y);
+          moves.push(x + 1 + "" + y);
         }
-        const cell2 = document.getElementById(x + "" + (y + 1));
+        const cell2 = document.getElementById(x + 1 + "" + (y + 1));
         if (cell2.innerText != "" && cell2.innerText.charAt(1) == "W") {
-          moves.push(x + "" + (y + 1));
+          moves.push(x + 1 + "" + (y + 1));
         }
-        const cell3 = document.getElementById(x + "" + (y - 1));
+        const cell3 = document.getElementById(x + 1 + "" + (y - 1));
         if (cell3.innerText != "" && cell3.innerText.charAt(1) == "W") {
-          moves.push(x + "" + (y - 1));
+          moves.push(x + 1 + "" + (y - 1));
         }
       }
     }
@@ -132,17 +150,17 @@ export class chess extends Game {
       moves.push(x + "" + y);
     } else {
       if (x - 1 >= 0) {
-        const cell1 = document.getElementById(x + "" + y);
+        const cell1 = document.getElementById(x - 1 + "" + y);
         if (cell1.innerText == "") {
-          moves.push(x + y);
+          moves.push(x - 1 + "" + y);
         }
-        const cell2 = document.getElementById(x + "" + (y + 1));
+        const cell2 = document.getElementById(x - 1 + "" + (y + 1));
         if (cell2.innerText != "" && cell2.innerText.charAt(1) == "B") {
-          moves.push(x + "" + (y + 1));
+          moves.push(x - 1 + "" + (y + 1));
         }
-        const cell3 = document.getElementById(x + "" + (y - 1));
+        const cell3 = document.getElementById(x - 1 + "" + (y - 1));
         if (cell3.innerText != "" && cell3.innerText.charAt(1) == "B") {
-          moves.push(x + "" + (y - 1));
+          moves.push(x - 1 + "" + (y - 1));
         }
       }
     }
@@ -407,5 +425,15 @@ export class chess extends Game {
         moves.push(x - 1 + "" + (y + 1));
       }
     }
+    if (x - 1 >= 0 && y - 1 >= 0) {
+      const cell = document.getElementById(x - 1 + "" + (y - 1));
+      if (
+        cell.innerText == "" ||
+        cell.innerText.charAt(1) != this.state.board[x][y].charAt(1)
+      ) {
+        moves.push(x - 1 + "" + (y - 1));
+      }
+    }
+    return moves;
   }
 }

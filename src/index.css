@@ -14,3 +14,23 @@ code {
   place-items: center;
   justify-content: center;
 }
+.undoButton{
+
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  width: 100px;
+  text-align: center;
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+.undoButton:hover{
+  background-color: #ccc;
+}
+.undoButton:active{
+  background-color: #ccc;
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75) inset;
+}
+

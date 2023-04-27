@@ -12,8 +12,8 @@ const GameWindow = () => {
       <Link to={`/game/${"chess"}`}>
         <button>Chess</button>
       </Link>
-      <Link to={`/game/${"tic"}`}>
-        <button>tictactoe</button>
+      <Link to={`/game/${"queen"}`}>
+        <button>8Queens</button>
       </Link>
       <Link to={`/game/${"tic"}`}>
         <button>tictactoe</button>
