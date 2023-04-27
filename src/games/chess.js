@@ -29,6 +29,7 @@ export class chess extends Game {
       ) {
         this.clicked = true;
         this.moves = this.getMoves(piece, x, y);
+        console.log(this.moves);
         this.prevID = id;
       }
     } else {
@@ -56,7 +57,8 @@ export class chess extends Game {
     }
     const cells = document.getElementsByClassName("cellchess");
     for (let i = 0; i < cells.length; i++) {
-      cells[i].innerText = state.board[cells[i].id.charAt(0)][cells[i].id.charAt(1)];
+      cells[i].innerText =
+        state.board[cells[i].id.charAt(0)][cells[i].id.charAt(1)];
     }
   }
   Init() {
@@ -116,21 +118,22 @@ export class chess extends Game {
     const moves = [];
     x = parseInt(x);
     y = parseInt(y);
-    if (x == 1) {
-      x++;
-      moves.push(x + "" + y);
-      x++;
-      moves.push(x + "" + y);
-    } else {
-      if (x + 1 < 8) {
-        const cell1 = document.getElementById(x + 1 + "" + y);
-        if (cell1.innerText == "") {
-          moves.push(x + 1 + "" + y);
+    if (x + 1 < 8) {
+      const cell1 = document.getElementById(x + 1 + "" + y);
+      if (cell1.innerText == "") {
+        moves.push(x + 1 + "" + y);
+        const cell4 = document.getElementById(x + 2 + "" + y);
+        if (cell4.innerText == "" && x == 1) {
+          moves.push(x + 2 + "" + y);
         }
+      }
+      if (y + 1 < 8) {
         const cell2 = document.getElementById(x + 1 + "" + (y + 1));
         if (cell2.innerText != "" && cell2.innerText.charAt(1) == "W") {
           moves.push(x + 1 + "" + (y + 1));
         }
+      }
+      if (y - 1 >= 0) {
         const cell3 = document.getElementById(x + 1 + "" + (y - 1));
         if (cell3.innerText != "" && cell3.innerText.charAt(1) == "W") {
           moves.push(x + 1 + "" + (y - 1));
@@ -143,21 +146,23 @@ export class chess extends Game {
     const moves = [];
     x = parseInt(x);
     y = parseInt(y);
-    if (x == 6) {
-      x--;
-      moves.push(x + "" + y);
-      x--;
-      moves.push(x + "" + y);
-    } else {
-      if (x - 1 >= 0) {
-        const cell1 = document.getElementById(x - 1 + "" + y);
-        if (cell1.innerText == "") {
-          moves.push(x - 1 + "" + y);
+
+    if (x - 1 >= 0) {
+      const cell1 = document.getElementById(x - 1 + "" + y);
+      if (cell1.innerText == "") {
+        moves.push(x - 1 + "" + y);
+        const cell4 = document.getElementById(x - 2 + "" + y);
+        if (cell4.innerText == "" && x == 6) {
+          moves.push(x - 2 + "" + y);
         }
+      }
+      if (y + 1 < 8) {
         const cell2 = document.getElementById(x - 1 + "" + (y + 1));
         if (cell2.innerText != "" && cell2.innerText.charAt(1) == "B") {
           moves.push(x - 1 + "" + (y + 1));
         }
+      }
+      if (y - 1 >= 0) {
         const cell3 = document.getElementById(x - 1 + "" + (y - 1));
         if (cell3.innerText != "" && cell3.innerText.charAt(1) == "B") {
           moves.push(x - 1 + "" + (y - 1));
