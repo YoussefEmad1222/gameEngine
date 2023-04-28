@@ -1,7 +1,6 @@
 import React from "react";
 
 export class Game extends React.Component {
-  
   constructor(rows, cols, gameName, intialBoard) {
     super();
     this.state = {
@@ -11,14 +10,11 @@ export class Game extends React.Component {
       gameName: gameName,
     };
   }
-  
-  
+
   drawAfterMove(state) {}
   validMove(state, row, col) {}
   makeMove(state, row, col) {}
-  
-  
-  
+
   drawer(state) {
     if (state == null) {
       return this.Init(
@@ -32,7 +28,6 @@ export class Game extends React.Component {
     }
   }
 
-
   controller(state, move) {
     const row = parseInt(move.target.id.charAt(0));
     const col = parseInt(move.target.id.charAt(1));
@@ -42,9 +37,6 @@ export class Game extends React.Component {
     this.makeMove(state, row, col);
     this.drawer(state);
   }
-
-
-
 
   drawBoard(row, col, gameName) {
     let board = [];
@@ -71,15 +63,16 @@ export class Game extends React.Component {
     return <div className="board">{board}</div>;
   }
 
-
-
   Init(rows, cols, gameName, intialBoard) {
     const board = this.drawBoard(rows, cols, gameName);
     const clonedrows = board.props.children.map((row) => {
       const clonedCells = row.props.children.map((cell) => {
         return React.cloneElement(cell, {
           onClick: (event) => this.controller(this.state, event),
-          children:intialBoard[parseInt(cell.props.id.charAt(0))][parseInt(cell.props.id.charAt(1))],
+          children:
+            intialBoard[parseInt(cell.props.id.charAt(0))][
+              parseInt(cell.props.id.charAt(1))
+            ],
         });
       });
       return React.cloneElement(row, {}, clonedCells);
@@ -87,7 +80,9 @@ export class Game extends React.Component {
     this.state.board = intialBoard;
     return (
       <div>
-        <h1 className={gameName} style={{ textAlign: "center" }}>{gameName}</h1>
+        <h1 className={gameName} style={{ textAlign: "center" }}>
+          {gameName}
+        </h1>
         <div className={gameName + "board"}>{clonedrows}</div>
       </div>
     );
