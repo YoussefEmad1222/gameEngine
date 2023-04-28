@@ -7,7 +7,7 @@ import "./App.css";
 function App() {
   return (
     <Routes>
-      <Route path="/react-tic-tac-toe" element={<GameWindow />}></Route>
+      <Route path="/" element={<GameWindow />}></Route>
       <Route path="/game/:id" element={<GameStarter />}></Route>
     </Routes>
   );
