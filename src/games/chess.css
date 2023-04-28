@@ -6,6 +6,8 @@
   width: 100%;
   height: 100%;
   margin: 0;
+  padding: 0;
+  border: none;
 }
 .cellchess {
   display: flex;
@@ -13,23 +15,23 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
-  background-color: bisque;
+  background-color: rgb(255, 255, 255);
+  border: none;
 }
 .cellchess:hover {
-  background-color: white;
+  background-color: rgb(194, 191, 191);
 }
 .rowchess:nth-child(odd) .cellchess:nth-child(even) {
-  background-color: rgb(56, 57, 56);
+  background-color: #6681b2;
 }
 .rowchess:nth-child(even) .cellchess:nth-child(odd):hover {
-  background-color: rgb(32, 33, 32);
+  background-color: #4d638c;
 }
-
 .rowchess:nth-child(even) .cellchess:nth-child(odd) {
-  background-color: rgb(51, 51, 51);
+  background-color: #6681b2;
 }
 .rowchess:nth-child(odd) .cellchess:nth-child(even):hover {
-  background-color: rgb(32, 33, 32);
+  background-color: #4d638c;
 }

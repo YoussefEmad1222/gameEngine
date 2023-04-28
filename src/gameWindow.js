@@ -4,27 +4,30 @@ import { Link } from "react-router-dom";
 import "./gameWindow.css";
 const GameWindow = () => {
   return (
-    <div className="gameWindow">
-      <h1>choose your game you want to play</h1>
-      <Link to={`/game/${"tic"}`}>
-        <button>tictactoe</button>
-      </Link>
-      <Link to={`/game/${"chess"}`}>
-        <button>Chess</button>
-      </Link>
-      <Link to={`/game/${"queen"}`}>
-        <button>8Queens</button>
-      </Link>
-      <Link to={`/game/${"tic"}`}>
-        <button>tictactoe</button>
-      </Link>
-      <Link to={`/game/${"tic"}`}>
-        <button>tictactoe</button>
-      </Link>
-      <Link to={`/game/${"tic"}`}>
-        <button>tictactoe</button>
-      </Link>
-    </div>
+    <nav div className="menu">
+      <input checked="checked" className="menu-toggler" type="checkbox"></input>
+      <label htmlFor="menu-toggle"></label>
+      <ul>
+        <li className="menu-item">
+          <Link to={`/game/${"tic"}`}>tictactoe</Link>
+        </li>
+        <li className="menu-item">
+          <Link to={`/game/${"chess"}`}>chess</Link>
+        </li>
+        <li className="menu-item">
+          <Link to={`/game/${"queen"}`}>8Queens</Link>
+        </li>
+        <li className="menu-item">
+          <Link to={`/game/${"sudoku"}`}>sudoku</Link>
+        </li>
+        <li className="menu-item">
+          <Link to={`/game/${"connect"}`}>connect4</Link>
+        </li>
+        <li className="menu-item">
+          <Link to={`/game/${"checkers"}`}>checkers</Link>
+        </li>
+      </ul>
+    </nav>
   );
 };
 

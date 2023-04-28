@@ -71,8 +71,8 @@ export class chess extends Game {
       ["", "", "", "", "", "", "", ""],
       ["", "", "", "", "", "", "", ""],
       ["", "", "", "", "", "", "", ""],
-      ["♟W", "♟W", "♟W", "♟W", "♟W", "♟W", "♟W", "♟W"],
-      ["♜W", "♞W", "♝W", "♛W", "♚W", "♝W", "♞W", "♜W"],
+      ["♙W", "♙W", "♙W", "♙W", "♙W", "♙W", "♙W", "♙W"],
+      ["♖W", "♘W", "♗W", "♕W", "♔W", "♗W", "♘W", "♖W"],
     ];
     const clonedrows = board.props.children.map((row) => {
       const clonedCells = row.props.children.map((cell) => {
@@ -83,6 +83,7 @@ export class chess extends Game {
       });
       return React.cloneElement(row, {}, clonedCells);
     });
+    console.log(clonedrows);
     this.state.board = board2;
     return (
       <div>
