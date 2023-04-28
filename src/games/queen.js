@@ -3,7 +3,6 @@ import { Game } from "./gameClass";
 import "./chess.css";
 
 export class Queen_8 extends Game {
-  stack = [];
   constructor(props) {
     super(props);
     this.state = {
@@ -22,19 +21,17 @@ export class Queen_8 extends Game {
       ],
     };
   }
-
-  undo(state) {
-    // console.log(this.stack);
-    // if (this.stack.length > 0) {
-    //   console.log("undo");
-    //   console.log(this.stack);
-    //   const board = this.stack.pop();
-    //   console.log(board);
-    //   state.board = board;
-    //   console.log(state.board);
-    //   this.drawer(state);
-    // }
+  stack = [];
+  undo() {
+    console.log(this.stack);
+    if (this.stack.length > 0) {
+      const board = this.stack.pop();
+      console.log(board);
+      this.state.board = board;
+      this.drawer(this.state);
+    }
   }
+
   validMove(state, x, y) {
     if (state.board[x][y] === "♛" || state.board[x][y] === "✘") {
       return false;
@@ -43,8 +40,24 @@ export class Queen_8 extends Game {
   }
   makeMove(state, x, y) {
     const board = state.board;
-    this.stack.push(board);
-
+    const board2 = [
+      ["", "", "", "", "", "", "", ""],
+      ["", "", "", "", "", "", "", ""],
+      ["", "", "", "", "", "", "", ""],
+      ["", "", "", "", "", "", "", ""],
+      ["", "", "", "", "", "", "", ""],
+      ["", "", "", "", "", "", "", ""],
+      ["", "", "", "", "", "", "", ""],
+      ["", "", "", "", "", "", "", ""],
+    ];
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board.length; j++) {
+        board2[i][j] = board[i][j];
+      }
+    }
+    this.stack.push(board2);
+    console.log(this.stack);
+    console.log(board2);
     board[x][y] = "♛";
     const moves = this.queenMove(x, y);
     for (let i = 0; i < moves.length; i++) {
@@ -56,6 +69,7 @@ export class Queen_8 extends Game {
     }
     state.board = board;
   }
+
   drawAfterMove(state) {
     const board = state.board;
     const cells = document.getElementsByClassName("cellchess");
@@ -83,7 +97,7 @@ export class Queen_8 extends Game {
       <div>
         <h1 style={{ textAlign: "center" }}>
           8Queens
-          <button className="undoButton" onClick={this.undo}>
+          <button className="undoButton" onClick={this.undo.bind(this)}>
             UNDO
           </button>
         </h1>
