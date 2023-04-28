@@ -1,7 +1,6 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable jsx-a11y/alt-text */
 import { Game } from "./gameClass";
-import React from "react";
 import "./chess.css";
 export class chess extends Game {
   clicked = false;
@@ -10,108 +9,42 @@ export class chess extends Game {
   constructor(props) {
     super(props);
     this.state = {
-      board: Array(8).fill(Array(8).fill("")),
+      rows: 8,
+      cols: 8,
+      gameName: "chess",
+      board: [
+        ["♜B", "♞B", "♝B", "♛B", "♚B", "♝B", "♞B", "♜B"],
+        ["♟B", "♟B", "♟B", "♟B", "♟B", "♟B", "♟B", "♟B"],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["♙W", "♙W", "♙W", "♙W", "♙W", "♙W", "♙W", "♙W"],
+        ["♖W", "♘W", "♗W", "♕W", "♔W", "♗W", "♘W", "♖W"],
+      ],
       xIsNext: true,
     };
-  }
-  controller(state, move) {
-    if (!this.clicked) {
-      this.state = state;
-      const board = this.state.board;
-      const id = move.target.id;
-      const x = move.target.id.charAt(0);
-      const y = move.target.id.charAt(1);
-      const piece = board[x][y];
-      if (
-        piece != "" &&
-        ((piece.charAt(1) == "W" && this.state.xIsNext) ||
-          (piece.charAt(1) == "B" && !this.state.xIsNext))
-      ) {
-        this.clicked = true;
-        this.moves = this.getMoves(piece, x, y);
-        console.log(this.moves);
-        this.prevID = id;
-      }
-    } else {
-      if (this.moves.includes(move.target.id)) {
-        const prevCell = document.getElementById(this.prevID);
-        const cell = document.getElementById(move.target.id);
-        cell.innerText = prevCell.innerText;
-        prevCell.innerText = "";
-        const board = this.state.board;
-        board[move.target.id.charAt(0)][move.target.id.charAt(1)] =
-          board[this.prevID.charAt(0)][this.prevID.charAt(1)];
-        board[this.prevID.charAt(0)][this.prevID.charAt(1)] = "";
-        state.board = board;
-        this.state.xIsNext = !this.state.xIsNext;
-        this.drawer(state);
-      }
-      this.clicked = false;
-      this.prevID = "";
-      this.moves = [];
-    }
-  }
-  drawer(state) {
-    if (state == null) {
-      return this.Init();
-    }
-    const cells = document.getElementsByClassName("cellchess");
-    for (let i = 0; i < cells.length; i++) {
-      cells[i].innerText =
-        state.board[cells[i].id.charAt(0)][cells[i].id.charAt(1)];
-    }
-  }
-  Init() {
-    this.clicked = false;
-    const board = this.drawBoard(8, 8, "chess");
-    const board2 = [
-      ["♜B", "♞B", "♝B", "♛B", "♚B", "♝B", "♞B", "♜B"],
-      ["♟B", "♟B", "♟B", "♟B", "♟B", "♟B", "♟B", "♟B"],
-      ["", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", ""],
-      ["♙W", "♙W", "♙W", "♙W", "♙W", "♙W", "♙W", "♙W"],
-      ["♖W", "♘W", "♗W", "♕W", "♔W", "♗W", "♘W", "♖W"],
-    ];
-    const clonedrows = board.props.children.map((row) => {
-      const clonedCells = row.props.children.map((cell) => {
-        return React.cloneElement(cell, {
-          onClick: (event) => this.controller(this.state, event),
-          children: board2[cell.props.id.charAt(0)][cell.props.id.charAt(1)],
-        });
-      });
-      return React.cloneElement(row, {}, clonedCells);
-    });
-    console.log(clonedrows);
-    this.state.board = board2;
-    return (
-      <div>
-        <h1 style={{ textAlign: "center" }}> Chess</h1>
-        <div className="chessBoard">{clonedrows}</div>
-      </div>
-    );
   }
   getMoves(piece, x, y) {
     if (piece == "♟B") {
       return this.pawnMovesB(x, y);
     }
-    if (piece == "♟W") {
+    if (piece == "♙W") {
       return this.pawnMovesW(x, y);
     }
-    if (piece == "♜B" || piece == "♜W") {
+    if (piece == "♜B" || piece == "♖W") {
       return this.rookMoves(x, y);
     }
-    if (piece == "♞B" || piece == "♞W") {
+    if (piece == "♞B" || piece == "♘W") {
       return this.knightMoves(x, y);
     }
-    if (piece == "♝B" || piece == "♝W") {
+    if (piece == "♝B" || piece == "♗W") {
       return this.bishopMoves(x, y);
     }
-    if (piece == "♛B" || piece == "♛W") {
+    if (piece == "♛B" || piece == "♕W") {
       return this.queenMoves(x, y);
     }
-    if (piece == "♚B" || piece == "♚W") {
+    if (piece == "♚B" || piece == "♔W") {
       return this.kingMoves(x, y);
     }
   }
@@ -147,7 +80,6 @@ export class chess extends Game {
     const moves = [];
     x = parseInt(x);
     y = parseInt(y);
-
     if (x - 1 >= 0) {
       const cell1 = document.getElementById(x - 1 + "" + y);
       if (cell1.innerText == "") {
@@ -442,4 +374,123 @@ export class chess extends Game {
     }
     return moves;
   }
+  validMove(state, x, y) {
+    if (!this.clicked) {
+      const piece = state.board[x][y];
+      if (
+        piece != "" &&
+        ((piece.charAt(1) == "W" && state.xIsNext) ||
+          (piece.charAt(1) == "B" && !state.xIsNext))
+      ) {
+        return true;
+      }
+      return false;
+    } else {
+      return this.moves.includes(x + "" + y);
+    }
+  }
+  makeMove(state, x, y) {
+    if (!this.clicked) {
+      const board = state.board;
+      const piece = board[x][y];
+      this.clicked = true;
+      this.moves = this.getMoves(piece, x, y);
+      this.prevID = x + "" + y;
+    } else {
+      const prevCell = document.getElementById(this.prevID);
+      const cell = document.getElementById(x + "" + y);
+      cell.innerText = prevCell.innerText;
+      prevCell.innerText = "";
+      state.board[x][y] =
+        state.board[this.prevID.charAt(0)][this.prevID.charAt(1)];
+      this.clicked = false;
+      this.moves = [];
+      this.prevID = "";
+      state.xIsNext = !state.xIsNext;
+    }
+  }
+  drawAfterMove(state) {
+    const board = state.board;
+    const cells = document.getElementsByClassName("cell");
+    for (let i = 0; i < cells.length; i++) {
+      cells[i].innerText = board[cells[i].id.charAt(0)][cells[i].id.charAt(1)];
+    }
+  }
+  // controller(state, move) {
+  //   if (!this.clicked) {
+  //     const board = this.state.board;
+  //     const id = move.target.id;
+  //     const x = move.target.id.charAt(0);
+  //     const y = move.target.id.charAt(1);
+  //     const piece = board[x][y];
+  //     if (
+  //       piece != "" &&
+  //       ((piece.charAt(1) == "W" && this.state.xIsNext) ||
+  //         (piece.charAt(1) == "B" && !this.state.xIsNext))
+  //     ) {
+  //       this.clicked = true;
+  //       this.moves = this.getMoves(piece, x, y);
+  //       this.prevID = id;
+  //     }
+  //   } else {
+  //     if (this.moves.includes(move.target.id)) {
+  //       const prevCell = document.getElementById(this.prevID);
+  //       const cell = document.getElementById(move.target.id);
+  //       cell.innerText = prevCell.innerText;
+  //       prevCell.innerText = "";
+  //       const board = this.state.board;
+  //       board[move.target.id.charAt(0)][move.target.id.charAt(1)] =
+  //         board[this.prevID.charAt(0)][this.prevID.charAt(1)];
+  //       board[this.prevID.charAt(0)][this.prevID.charAt(1)] = "";
+  //       state.board = board;
+  //       this.state.xIsNext = !this.state.xIsNext;
+  //       this.drawer(state);
+  //     }
+  //     this.clicked = false;
+  //     this.prevID = "";
+  //     this.moves = [];
+  //   }
+  // }
+  // drawer(state) {
+  //   if (state == null) {
+  //     return this.Init();
+  //   }
+  //   const cells = document.getElementsByClassName("cellchess");
+  //   for (let i = 0; i < cells.length; i++) {
+  //     cells[i].innerText =
+  //       state.board[cells[i].id.charAt(0)][cells[i].id.charAt(1)];
+  //   }
+  // }
+  // Init() {
+  //   this.clicked = false;
+  //   const board = this.drawBoard(8, 8, "chess");
+  //   const board2 = [
+  //     ["♜B", "♞B", "♝B", "♛B", "♚B", "♝B", "♞B", "♜B"],
+  //     ["♟B", "♟B", "♟B", "♟B", "♟B", "♟B", "♟B", "♟B"],
+  //     ["", "", "", "", "", "", "", ""],
+  //     ["", "", "", "", "", "", "", ""],
+  //     ["", "", "", "", "", "", "", ""],
+  //     ["", "", "", "", "", "", "", ""],
+  //     ["♙W", "♙W", "♙W", "♙W", "♙W", "♙W", "♙W", "♙W"],
+  //     ["♖W", "♘W", "♗W", "♕W", "♔W", "♗W", "♘W", "♖W"],
+  //   ];
+  //   const clonedrows = board.props.children.map((row) => {
+  //     const clonedCells = row.props.children.map((cell) => {
+  //       return React.cloneElement(cell, {
+  //         onClick: (event) => this.controller(this.state, event),
+  //         children: board2[cell.props.id.charAt(0)][cell.props.id.charAt(1)],
+  //       });
+  //     });
+  //     return React.cloneElement(row, {}, clonedCells);
+  //   });
+
+  //   this.state.board = board2;
+  //   return (
+  //     <div>
+  //       <h1 style={{ textAlign: "center" }}> Chess</h1>
+  //       <div className="chessBoard">{clonedrows}</div>
+  //     </div>
+  //   );
+  // }
 }
+export default chess;

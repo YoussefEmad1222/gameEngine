@@ -1,3 +1,4 @@
+
 .rowchess {
   display: flex;
   flex-direction: row;
@@ -35,3 +36,4 @@
 .rowchess:nth-child(odd) .cellchess:nth-child(even):hover {
   background-color: #4d638c;
 }
+
