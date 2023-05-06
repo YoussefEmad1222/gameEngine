@@ -1,41 +1,40 @@
 import React from "react";
 
 export class Game extends React.Component {
-  constructor(rows, cols, gameName, intialBoard) {
-    super();
-    this.state = {
-      board: intialBoard,
-      rows: rows,
-      cols: cols,
-      gameName: gameName,
-    };
-  }
-
   drawAfterMove(state) {}
   validMove(state, row, col) {}
   makeMove(state, row, col) {}
+  gameStart(state) {
+    let gameMove = null;
+    setTimeout(() => {
+      while (!gameMove) {
+        gameMove = prompt("Enter your move");
+      }
+      if (!this.controller(state, gameMove)) {
+        alert("Invalid Move");
+      }
+      this.drawer(state);
+      this.gameStart(state);
+    }, 3000);
+    return this.Init(state);
+  }
 
   drawer(state) {
     if (state == null) {
-      return this.Init(
-        this.state.rows,
-        this.state.cols,
-        this.state.gameName,
-        this.state.board
-      );
+      return this.Init(state);
     } else {
       this.drawAfterMove(state);
     }
   }
 
   controller(state, move) {
-    const row = parseInt(move.target.id.charAt(0));
-    const col = parseInt(move.target.id.charAt(1));
+    const row = parseInt(move.charAt(0));
+    const col = parseInt(move.charAt(1));
     if (!this.validMove(state, row, col)) {
-      return;
+      return false;
     }
     this.makeMove(state, row, col);
-    this.drawer(state);
+    return true;
   }
 
   drawBoard(row, col, gameName) {
@@ -63,12 +62,15 @@ export class Game extends React.Component {
     return <div className="board">{board}</div>;
   }
 
-  Init(rows, cols, gameName, intialBoard) {
+  Init(gameState) {
+    const rows = gameState.rows;
+    const cols = gameState.cols;
+    const gameName = gameState.gameName;
+    const intialBoard = gameState.board;
     const board = this.drawBoard(rows, cols, gameName);
     const clonedrows = board.props.children.map((row) => {
       const clonedCells = row.props.children.map((cell) => {
         return React.cloneElement(cell, {
-          onClick: (event) => this.controller(this.state, event),
           children:
             intialBoard[parseInt(cell.props.id.charAt(0))][
               parseInt(cell.props.id.charAt(1))
@@ -77,7 +79,7 @@ export class Game extends React.Component {
       });
       return React.cloneElement(row, {}, clonedCells);
     });
-    this.state.board = intialBoard;
+
     return (
       <div>
         <h1 className={gameName} style={{ textAlign: "center" }}>
