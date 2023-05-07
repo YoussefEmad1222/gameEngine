@@ -4,14 +4,17 @@ export class Game extends React.Component {
   drawAfterMove(state) {}
   validMove(state, row, col) {}
   makeMove(state, row, col) {}
+
   gameStart(state) {
     let gameMove = null;
     setTimeout(() => {
       while (!gameMove) {
         gameMove = prompt("Enter your move");
       }
-      if (!this.controller(state, gameMove)) {
-        alert("Invalid Move");
+      const valid = this.controller(state, gameMove)[0];
+      state = this.controller(state, gameMove)[1];
+      if (!valid) {
+        alert("Invalid move");
       }
       this.drawer(state);
       this.gameStart(state);
@@ -31,10 +34,10 @@ export class Game extends React.Component {
     const row = parseInt(move.charAt(0));
     const col = parseInt(move.charAt(1));
     if (!this.validMove(state, row, col)) {
-      return false;
+      return [false, state];
     }
-    this.makeMove(state, row, col);
-    return true;
+    state = this.makeMove(state, row, col);
+    return [true, state];
   }
 
   drawBoard(row, col, gameName) {

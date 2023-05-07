@@ -16,6 +16,7 @@ export class TicTacToe extends Game {
     const idx = row * 3 + col;
     state.board[idx] = state.xIsNext ? "X" : "O";
     state.xIsNext = !state.xIsNext;
+    return state;
   }
 
   drawAfterMove(state) {
@@ -24,7 +25,7 @@ export class TicTacToe extends Game {
       cells[i].innerText = state.board[i];
     }
   }
-  
+
   checkWinner(state) {
     const win = [
       [0, 1, 2],
