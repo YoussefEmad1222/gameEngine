@@ -56,11 +56,13 @@ export class Queen_8 extends Game {
         ["", "", "", "", "", "", "", ""],
       ],
     };
+
     for (let i = 0; i < state.board.length; i++) {
       for (let j = 0; j < state.board.length; j++) {
         newState.board[i][j] = state.board[i][j];
       }
     }
+
     if (move === "delete") {
       console.log("delete");
       const gameMove = prompt("Enter the position of the queen to delete");
@@ -80,21 +82,25 @@ export class Queen_8 extends Game {
         ["", "", "", "", "", "", "", ""],
         ["", "", "", "", "", "", "", ""],
       ];
+
       for (let i = 0; i < newState.board.length; i++) {
         for (let j = 0; j < newState.board.length; j++) {
+
           if (newState.board[i][j] === "♛") {
             newBoard[i][j] = "♛";
             const moves = this.queenMove(i, j);
             for (let k = 0; k < moves.length; k++) {
               const row = parseInt(moves[k][0]);
               const col = parseInt(moves[k][1]);
-              if (newState.board[row][col] === "") {
+              if (newBoard[row][col] === "") {
                 newBoard[row][col] = "✘";
               }
             }
           }
+
         }
       }
+
       console.log(newBoard);
       newState.board = newBoard;
       console.log(newState);
