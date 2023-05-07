@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import TicTacToe from "./games/TictacToe";
 import { chess } from "./games/chess";
 import { Queen_8 } from "./games/queen";
+import { Connect4 } from "./games/connect-4";
 
 const getGame = (game) => {
   if (game === "tic") {
@@ -33,6 +34,21 @@ const getGame = (game) => {
       ],
     };
     return [new Queen_8(), state];
+  }else if (game === "connect-4"){
+    const state = {
+      rows: 6,
+      cols: 7,
+      gameName: "connect-4",
+      board: [["","","","","","",""],
+              ["","","","","","",""],
+              ["","","","","","",""],
+              ["","","","","","",""],
+              ["","","","","","",""],
+              ["","","","","","",""]],
+      xIsNext: true,
+      winner : false
+    };
+    return [new Connect4(), state];
   }
 };
 const GameStarter = () => {
