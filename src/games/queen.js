@@ -1,4 +1,4 @@
-import React from "react";
+//
 import { Game } from "./gameClass";
 import "./chess.css";
 
@@ -44,7 +44,7 @@ export class Queen_8 extends Game {
     const newState = {
       rows: 8,
       cols: 8,
-      gameName: "queen",
+      gameName: "chess",
       board: [
         ["", "", "", "", "", "", "", ""],
         ["", "", "", "", "", "", "", ""],
@@ -85,7 +85,6 @@ export class Queen_8 extends Game {
 
       for (let i = 0; i < newState.board.length; i++) {
         for (let j = 0; j < newState.board.length; j++) {
-
           if (newState.board[i][j] === "♛") {
             newBoard[i][j] = "♛";
             const moves = this.queenMove(i, j);
@@ -97,7 +96,6 @@ export class Queen_8 extends Game {
               }
             }
           }
-
         }
       }
 
@@ -129,6 +127,8 @@ export class Queen_8 extends Game {
   }
 
   drawer(state) {
+    console.log(state.board);
+    console.log("drawer");
     const board = state.board;
     const cells = document.getElementsByClassName("cellchess");
     for (let i = 0; i < cells.length; i++) {
