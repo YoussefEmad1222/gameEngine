@@ -1,25 +1,62 @@
-
 import Game from "./gameClass";
 import "./Tictactoe.css";
 
 export class TicTacToe extends Game {
+  // validMove(state, row, col) {
+  //   const idx = row * 3 + col;
+  //   if (state.board[idx] !== "" || this.checkWinner(state)) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
-  validMove(state, row, col) {
+  // makeMove(state, row, col) {
+  //   const idx = row * 3 + col;
+  //   state.board[idx] = state.xIsNext ? "X" : "O";
+  //   state.xIsNext = !state.xIsNext;
+  //   return state;
+  // }
+
+  // drawAfterMove(state) {
+  //   const cells = document.getElementsByClassName("celltic");
+  //   for (let i = 0; i < cells.length; i++) {
+  //     cells[i].innerText = state.board[i];
+  //   }
+  // }
+  controller(state, move) {
+    const row = parseInt(move[0]) - 1;
+    const col = parseInt(move[1]) - 1;
     const idx = row * 3 + col;
-    if (state.board[idx] !== "" || this.checkWinner(state)) {
-      return false;
+    let NewState = Array(9).fill("");
+    for (let i = 0; i < 9; i++) {
+      NewState[i] = state.board[i];
     }
-    return true;
+    if (NewState[idx] !== "" || this.checkWinner(state)) {
+      const newState = {
+        rows: 3,
+        cols: 3,
+        gameName: "tic",
+        board: NewState,
+        xIsNext: xIsNext,
+      };
+      return [false, newState];
+    }
+
+    NewState[idx] = state.xIsNext ? "X" : "O";
+    let xIsNext = !state.xIsNext;
+    const newState = {
+      rows: 3,
+      cols: 3,
+      gameName: "tic",
+      board: NewState,
+      xIsNext: xIsNext,
+    };
+    console.log(newState);
+    console.log(state);
+    return [true, newState];
   }
 
-  makeMove(state, row, col) {
-    const idx = row * 3 + col;
-    state.board[idx] = state.xIsNext ? "X" : "O";
-    state.xIsNext = !state.xIsNext;
-    return state;
-  }
-
-  drawAfterMove(state) {
+  drawer(state) {
     const cells = document.getElementsByClassName("celltic");
     for (let i = 0; i < cells.length; i++) {
       cells[i].innerText = state.board[i];

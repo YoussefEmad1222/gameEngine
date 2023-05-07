@@ -17,7 +17,22 @@ const getGame = (game) => {
   } else if (game === "chess") {
     return new chess();
   } else if (game === "queen") {
-    return new Queen_8();
+   const state = {
+      rows: 8,
+      cols: 8,
+      gameName: "chess",
+      board: [
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+      ],
+    };
+    return [new Queen_8(), state];
   }
 };
 const GameStarter = () => {

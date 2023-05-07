@@ -1,9 +1,9 @@
 import React from "react";
 
 export class Game extends React.Component {
-  drawAfterMove(state) {}
-  validMove(state, row, col) {}
-  makeMove(state, row, col) {}
+  drawer(state) {}
+
+  controller(state, move) {}
 
   gameStart(state) {
     let gameMove = null;
@@ -12,32 +12,15 @@ export class Game extends React.Component {
         gameMove = prompt("Enter your move");
       }
       var valid = false;
-      [valid, state] = this.controller(state, gameMove);
+      var newState = null;
+      [valid, newState] = this.controller(state, gameMove);
       if (!valid) {
         alert("Invalid move");
       }
-      this.drawer(state);
-      this.gameStart(state);
-    }, 3000);
+      this.drawer(newState);
+      this.gameStart(newState);
+    }, 4000);
     return this.Init(state);
-  }
-
-  drawer(state) {
-    if (state == null) {
-      return this.Init(state);
-    } else {
-      this.drawAfterMove(state);
-    }
-  }
-
-  controller(state, move) {
-    const row = parseInt(move.charAt(0));
-    const col = parseInt(move.charAt(1));
-    if (!this.validMove(state, row, col)) {
-      return [false, state];
-    }
-    state = this.makeMove(state, row, col);
-    return [true, state];
   }
 
   drawBoard(row, col, gameName) {
@@ -64,7 +47,6 @@ export class Game extends React.Component {
     }
     return <div className="board">{board}</div>;
   }
-
   Init(gameState) {
     const rows = gameState.rows;
     const cols = gameState.cols;
