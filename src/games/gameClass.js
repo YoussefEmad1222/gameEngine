@@ -11,8 +11,8 @@ export class Game extends React.Component {
       while (!gameMove) {
         gameMove = prompt("Enter your move");
       }
-      const valid = this.controller(state, gameMove)[0];
-      state = this.controller(state, gameMove)[1];
+      var valid = false;
+      [valid, state] = this.controller(state, gameMove);
       if (!valid) {
         alert("Invalid move");
       }
