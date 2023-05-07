@@ -6,17 +6,41 @@ import { Queen_8 } from "./games/queen";
 
 const getGame = (game) => {
   if (game === "tic") {
-    return new TicTacToe();
+    const state = {
+      rows: 3,
+      cols: 3,
+      gameName: "tic",
+      board: ["", "", "", "", "", "", "", "", ""],
+      xIsNext: true,
+    };
+    return [new TicTacToe(), state];
   } else if (game === "chess") {
     return new chess();
   } else if (game === "queen") {
-    return new Queen_8();
+   const state = {
+      rows: 8,
+      cols: 8,
+      gameName: "chess",
+      board: [
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+      ],
+    };
+    return [new Queen_8(), state];
   }
 };
 const GameStarter = () => {
   const games = useParams();
   const game = getGame(games.id);
-  return game.drawer();
+  const gameState = game[1];
+  const gameClass = game[0];
+  return gameClass.gameStart(gameState);
 };
 
 export default GameStarter;
