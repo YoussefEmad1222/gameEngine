@@ -1,10 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { useParams } from "react-router-dom";
-import TicTacToe from "./games/TictacToe";
-import { chess } from "./games/chess";
+import TicTacToe from "./games/tictactoe/TictacToe";
+import { chess } from "./games/chess/chess";
 import { Queen_8 } from "./games/queen";
-import { Connect4 } from "./games/connect-4";
-import { Sudoku } from "./games/sudoku";
+import { Connect4 } from "./games/connect-4/connect-4";
+import { Sudoku } from "./games/sudoku/sudoku";
+import { Checkers } from "./games/checkers/checkers";
+import SudokuBoard from "./games/SudokuB";
 
 const generateBoard = () => {
   
@@ -13,7 +15,7 @@ const generateBoard = () => {
   
   for (let i = 0; i < 9; i += 3) {
     const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    for (let j = i; j < i + 3; j+=Math.ceil(Math.random() * 2)) {
+    for (let j = i; j < i + 3; j+=Math.ceil(Math.random())) {
       for (let k = i; k < i + 3; k+= Math.ceil(Math.random() * 2)) {
         const randomIndex = Math.floor(Math.random() * nums.length);
         const num = nums[randomIndex];
@@ -88,11 +90,12 @@ const getGame = (game) => {
     };
     return [new Connect4(), state];
   }else if (game === "sudoku"){
-    const init = generateBoard();
-    const intialBoard = init[0];
-    console.log(intialBoard)
-    const unmod = init[1];
-    console.log(unmod)
+    let N = 9;
+    let K = 40;
+    let sudoku = new SudokuBoard(N, K);
+    sudoku.fillValues();
+    const intialBoard = sudoku.getMat();
+    const unmod = sudoku.getUnModify();
     const state = {
       rows: 9,
       cols: 9,

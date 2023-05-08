@@ -1,6 +1,5 @@
-//
 import { Game } from "./gameClass";
-import "./chess.css";
+import "./chess/chess.css";
 
 export class Queen_8 extends Game {
 

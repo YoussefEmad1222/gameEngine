@@ -1,6 +1,6 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable jsx-a11y/alt-text */
-import { Game } from "./gameClass";
+import { Game } from '../gameClass';
 import "./chess.css";
 export class chess extends Game {
 
