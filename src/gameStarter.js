@@ -4,6 +4,7 @@ import TicTacToe from "./games/TictacToe";
 import { chess } from "./games/chess";
 import { Queen_8 } from "./games/queen";
 import { Connect4 } from "./games/connect-4";
+import { Checkers } from "./games/checkers";
 
 const getGame = (game) => {
   if (game === "tic") {
@@ -16,9 +17,25 @@ const getGame = (game) => {
     };
     return [new TicTacToe(), state];
   } else if (game === "chess") {
-    return new chess();
+    const state = {
+      rows: 8,
+      cols: 8,
+      gameName: "chess",
+      board: [
+        ["♜B", "♞B", "♝B", "♛B", "♚B", "♝B", "♞B", "♜B"],
+        ["♟B", "♟B", "♟B", "♟B", "♟B", "♟B", "♟B", "♟B"],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["♙W", "♙W", "♙W", "♙W", "♙W", "♙W", "♙W", "♙W"],
+        ["♖W", "♘W", "♗W", "♕W", "♔W", "♗W", "♘W", "♖W"],
+      ],
+      xIsNext: true,
+    };
+    return [new chess(), state];
   } else if (game === "queen") {
-   const state = {
+    const state = {
       rows: 8,
       cols: 8,
       gameName: "chess",
@@ -34,6 +51,7 @@ const getGame = (game) => {
       ],
     };
     return [new Queen_8(), state];
+
   }else if (game === "connect-4"){
     const state = {
       rows: 6,
@@ -49,6 +67,25 @@ const getGame = (game) => {
       winner : false
     };
     return [new Connect4(), state];
+
+  } else if (game === "checkers") {
+    const state = {
+      rows: 8,
+      cols: 8,
+      xIsNext: true,
+      gameName: "checkers",
+      board: [
+        ["", "⚫", "", "⚫", "", "⚫", "", "⚫"],
+        ["⚫", "", "⚫", "", "⚫", "", "⚫", ""],
+        ["", "⚫", "", "⚫", "", "⚫", "", "⚫"],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["⚪", "", "⚪", "", "⚪", "", "⚪", ""],
+        ["", "⚪", "", "⚪", "", "⚪", "", "⚪"],
+        ["⚪", "", "⚪", "", "⚪", "", "⚪", ""],
+      ],
+    };
+    return [new Checkers(), state];
   }
 };
 const GameStarter = () => {

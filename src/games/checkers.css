@@ -1,0 +1,37 @@
+.rowcheckers {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+  .cellcheckers {
+    display: flex;
+    margin: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-weight: bold;
+    background-color: rgb(255, 255, 255);
+    border: none;
+  }
+  .cellcheckers:hover {
+    background-color: rgb(194, 191, 191);
+  }
+  .rowcheckers:nth-child(odd) .cellcheckers:nth-child(even) {
+    background-color: #6681b2;
+  }
+  .rowcheckers:nth-child(even) .cellcheckers:nth-child(odd):hover {
+    background-color: #4d638c;
+  }
+  .rowcheckers:nth-child(even) .cellcheckers:nth-child(odd) {
+    background-color: #6681b2;
+  }
+  .rowcheckers:nth-child(odd) .cellcheckers:nth-child(even):hover {
+    background-color: #4d638c;
+  }
