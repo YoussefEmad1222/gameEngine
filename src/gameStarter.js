@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import TicTacToe from "./games/TictacToe";
 import { chess } from "./games/chess";
 import { Queen_8 } from "./games/queen";
-
+import { Checkers } from "./games/checkers";
 const getGame = (game) => {
   if (game === "tic") {
     const state = {
@@ -49,6 +49,24 @@ const getGame = (game) => {
       ],
     };
     return [new Queen_8(), state];
+  } else if (game === "checkers") {
+    const state = {
+      rows: 8,
+      cols: 8,
+      xIsNext: true,
+      gameName: "checkers",
+      board: [
+        ["", "⚫", "", "⚫", "", "⚫", "", "⚫"],
+        ["⚫", "", "⚫", "", "⚫", "", "⚫", ""],
+        ["", "⚫", "", "⚫", "", "⚫", "", "⚫"],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["⚪", "", "⚪", "", "⚪", "", "⚪", ""],
+        ["", "⚪", "", "⚪", "", "⚪", "", "⚪"],
+        ["⚪", "", "⚪", "", "⚪", "", "⚪", ""],
+      ],
+    };
+    return [new Checkers(), state];
   }
 };
 const GameStarter = () => {

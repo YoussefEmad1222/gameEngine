@@ -3,9 +3,6 @@
 import { Game } from "./gameClass";
 import "./chess.css";
 export class chess extends Game {
-  clicked = false;
-  moves = [];
-  prevID = "";
 
   getMoves(state, piece, x, y) {
     if (piece == "♟B") {
