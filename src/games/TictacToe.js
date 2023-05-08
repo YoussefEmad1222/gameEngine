@@ -2,27 +2,7 @@ import Game from "./gameClass";
 import "./Tictactoe.css";
 
 export class TicTacToe extends Game {
-  // validMove(state, row, col) {
-  //   const idx = row * 3 + col;
-  //   if (state.board[idx] !== "" || this.checkWinner(state)) {
-  //     return false;
-  //   }
-  //   return true;
-  // }
 
-  // makeMove(state, row, col) {
-  //   const idx = row * 3 + col;
-  //   state.board[idx] = state.xIsNext ? "X" : "O";
-  //   state.xIsNext = !state.xIsNext;
-  //   return state;
-  // }
-
-  // drawAfterMove(state) {
-  //   const cells = document.getElementsByClassName("celltic");
-  //   for (let i = 0; i < cells.length; i++) {
-  //     cells[i].innerText = state.board[i];
-  //   }
-  // }
   controller(state, move) {
     const row = parseInt(move[0]) - 1;
     const col = parseInt(move[1]) - 1;
