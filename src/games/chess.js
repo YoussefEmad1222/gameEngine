@@ -3,7 +3,6 @@
 import { Game } from "./gameClass";
 import "./chess.css";
 export class chess extends Game {
-
   getMoves(state, piece, x, y) {
     if (piece == "♟B") {
       return this.pawnMovesB(state, x, y);
@@ -356,26 +355,6 @@ export class chess extends Game {
     }
     return false;
   }
-  makeMove(state, x, y) {
-    if (!this.clicked) {
-      const board = state.board;
-      const piece = board[x][y];
-      this.clicked = true;
-      this.moves = this.getMoves(piece, x, y);
-      this.prevID = x + "" + y;
-    } else {
-      const prevCell = document.getElementById(this.prevID);
-      const cell = document.getElementById(x + "" + y);
-      cell.innerText = prevCell.innerText;
-      prevCell.innerText = "";
-      state.board[x][y] =
-        state.board[this.prevID.charAt(0)][this.prevID.charAt(1)];
-      this.clicked = false;
-      this.moves = [];
-      this.prevID = "";
-      state.xIsNext = !state.xIsNext;
-    }
-  }
 
   drawer(state) {
     console.log("chess drawer");
@@ -386,8 +365,9 @@ export class chess extends Game {
     }
   }
   controller(state, move) {
-    const xSrc = move.charAt(0);
-    const ySrc = move.charAt(1);
+    var xSrc = move.charCodeAt(0) - "1".charCodeAt(0);
+    var ySrc = move.charCodeAt(1) - "a".charCodeAt(0);
+    xSrc = 8 - xSrc - 1;
     const newStates = {
       rows: 8,
       cols: 8,
@@ -408,6 +388,12 @@ export class chess extends Game {
       for (let j = 0; j < 8; j++) {
         newStates.board[i][j] = state.board[i][j];
       }
+    }
+    if (move.length !== 2) {
+      return [false, newStates];
+    }
+    if (xSrc < 0 || xSrc > 7 || ySrc < 0 || ySrc > 7) {
+      return [false, newStates];
     }
     const piece = newStates.board[xSrc][ySrc];
     console.log(piece);
@@ -434,6 +420,5 @@ export class chess extends Game {
     return [true, newStates];
   }
 }
-
 
 export default chess;

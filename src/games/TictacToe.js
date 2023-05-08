@@ -2,37 +2,29 @@ import Game from "./gameClass";
 import "./Tictactoe.css";
 
 export class TicTacToe extends Game {
-
   controller(state, move) {
-    const row = parseInt(move[0]) - 1;
-    const col = parseInt(move[1]) - 1;
-    const idx = row * 3 + col;
-    let NewState = Array(9).fill("");
-    for (let i = 0; i < 9; i++) {
-      NewState[i] = state.board[i];
-    }
-    if (NewState[idx] !== "" || this.checkWinner(state)) {
-      const newState = {
-        rows: 3,
-        cols: 3,
-        gameName: "tic",
-        board: NewState,
-        xIsNext: xIsNext,
-      };
-      return [false, newState];
-    }
-
-    NewState[idx] = state.xIsNext ? "X" : "O";
-    let xIsNext = !state.xIsNext;
     const newState = {
       rows: 3,
       cols: 3,
       gameName: "tic",
-      board: NewState,
-      xIsNext: xIsNext,
+      board: ["", "", "", "", "", "", "", "", ""],
+      xIsNext: state.xIsNext,
     };
-    console.log(newState);
-    console.log(state);
+    for (let i = 0; i < 9; i++) {
+      newState[i] = state.board[i];
+    }
+    if (move.length !== 2) {
+      return [false, newState];
+    }
+    const row = parseInt(move[0]);
+    const col = parseInt(move[1]);
+    const idx = row * 3 + col;
+    if (idx < 0 || idx > 8 || newState[idx] !== "" || this.checkWinner(state)) {
+      return [false, newState];
+    }
+
+    newState[idx] = state.xIsNext ? "X" : "O";
+    newState.xIsNext = !state.xIsNext;
     return [true, newState];
   }
 

@@ -3,8 +3,6 @@ import { Game } from "./gameClass";
 import "./chess.css";
 
 export class Queen_8 extends Game {
-
-
   controller(state, move) {
     const newState = {
       rows: 8,
@@ -31,8 +29,12 @@ export class Queen_8 extends Game {
     if (move === "delete") {
       console.log("delete");
       const gameMove = prompt("Enter the position of the queen to delete");
-      const x = parseInt(gameMove.charAt(0));
-      const y = parseInt(gameMove.charAt(1));
+      var x = gameMove.charCodeAt(0) - "1".charCodeAt(0);
+      var y = gameMove.charCodeAt(1) - "a".charCodeAt(0);
+      x = 8 - x - 1;
+      if (x < 0 || x > 7 || y < 0 || y > 7) {
+        return [false, newState];
+      }
       if (state.board[x][y] !== "♛") {
         return [false, newState];
       }
@@ -63,18 +65,20 @@ export class Queen_8 extends Game {
           }
         }
       }
-
       console.log(newBoard);
       newState.board = newBoard;
       console.log(newState);
       return [true, newState];
     }
-    const x = parseInt(move.charAt(0));
-    const y = parseInt(move.charAt(1));
-    for (let i = 0; i < state.board.length; i++) {
-      for (let j = 0; j < state.board.length; j++) {
-        newState.board[i][j] = state.board[i][j];
-      }
+
+    if (move.length !== 2) {
+      return [false, newState];
+    }
+    var x = move.charCodeAt(0) - "1".charCodeAt(0);
+    var y = move.charCodeAt(1) - "a".charCodeAt(0);
+    x = 8 - x - 1;
+    if (x < 0 || x > 7 || y < 0 || y > 7) {
+      return [false, newState];
     }
     if (newState.board[x][y] === "♛" || newState.board[x][y] === "✘") {
       return [false, newState];
@@ -100,7 +104,7 @@ export class Queen_8 extends Game {
       cells[i].innerText = board[cells[i].id.charAt(0)][cells[i].id.charAt(1)];
     }
   }
-  
+
   queenMove(x, y) {
     const moves = [];
     for (let i = 0; i < 8; i++) {

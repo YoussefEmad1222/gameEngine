@@ -75,8 +75,15 @@ export class Checkers extends Game {
         newState.board[i][j] = state.board[i][j];
       }
     }
-    const x = parseInt(move.charAt(0));
-    const y = parseInt(move.charAt(1));
+    if (move.length !== 2) {
+      return [false, newState];
+    }
+    var x = move.charCodeAt(0) - "1".charCodeAt(0);
+    var y = move.charCodeAt(1) - "1".charCodeAt(0);
+    x = 8 - x - 1;
+    if (x < 0 || x > 7 || y < 0 || y > 7) {
+      return [false, newState];
+    }
     const piece = newState.board[x][y];
     if (
       (piece === "⚫" && newState.xIsNext) ||
@@ -97,9 +104,7 @@ export class Checkers extends Game {
           newState.board[x + 1][y + 1] = "";
         } else if (destX === x + 2 && destY === y - 2) {
           newState.board[x + 1][y - 1] = "";
-        }
-        else{
-
+        } else {
         }
       } else if (piece === "⚪") {
         if (destX === x - 2 && destY === y + 2) {
