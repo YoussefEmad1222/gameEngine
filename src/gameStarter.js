@@ -38,7 +38,23 @@ const getGame = (game) => {
     };
     return [new TicTacToe(), state];
   } else if (game === "chess") {
-    return new chess();
+    const state = {
+      rows: 8,
+      cols: 8,
+      gameName: "chess",
+      board: [
+        ["♜B", "♞B", "♝B", "♛B", "♚B", "♝B", "♞B", "♜B"],
+        ["♟B", "♟B", "♟B", "♟B", "♟B", "♟B", "♟B", "♟B"],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["♙W", "♙W", "♙W", "♙W", "♙W", "♙W", "♙W", "♙W"],
+        ["♖W", "♘W", "♗W", "♕W", "♔W", "♗W", "♘W", "♖W"],
+      ],
+      xIsNext: true,
+    };
+    return [new chess(), state];
   } else if (game === "queen") {
    const state = {
       rows: 8,
@@ -97,6 +113,24 @@ const getGame = (game) => {
       unmodifyable : unmod
     };
     return [new Sudoku(), state];
+  } else if (game === "checkers") {
+    const state = {
+      rows: 8,
+      cols: 8,
+      xIsNext: true,
+      gameName: "checkers",
+      board: [
+        ["", "⚫", "", "⚫", "", "⚫", "", "⚫"],
+        ["⚫", "", "⚫", "", "⚫", "", "⚫", ""],
+        ["", "⚫", "", "⚫", "", "⚫", "", "⚫"],
+        ["", "", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", "", ""],
+        ["⚪", "", "⚪", "", "⚪", "", "⚪", ""],
+        ["", "⚪", "", "⚪", "", "⚪", "", "⚪"],
+        ["⚪", "", "⚪", "", "⚪", "", "⚪", ""],
+      ],
+    };
+    return [new Checkers(), state];
   }
 };
 const GameStarter = () => {
