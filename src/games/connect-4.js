@@ -19,21 +19,21 @@ export class Connect4 extends Game {
             NewState[i][j] = state.board[i][j];
         }
     }
-    let row , valid = false;
+    let row , valid = false, win = state.winner;
     for(let x = 5 ; x >= 0 && !valid && col < 7; x--){
         if(NewState[x][col] === ""){
             row = x;
             valid = true;
         } 
     }
-    if(valid === false || state.winner === true){
+    if(valid === false || win === true){
         const newState = {
             rows: 6,
             cols: 7,
             gameName: "connect-4",
             board: NewState,
             xIsNext: state.xIsNext,
-            winner: state.winner
+            winner: win
         };
         return [false, newState];
     }
@@ -45,7 +45,7 @@ export class Connect4 extends Game {
         gameName: "connect-4",
         board: NewState,
         xIsNext: xIsNext,
-        winner: state.winner
+        winner: win
     };
 
     console.log(newState);

@@ -4,7 +4,28 @@ import TicTacToe from "./games/TictacToe";
 import { chess } from "./games/chess";
 import { Queen_8 } from "./games/queen";
 import { Connect4 } from "./games/connect-4";
-import { Checkers } from "./games/checkers";
+import { Sudoku } from "./games/sudoku";
+
+const generateBoard = () => {
+  
+  const board = Array(9).fill().map(() => Array(9).fill(""));
+  const generated = Array(9).fill().map(() => Array(9).fill(false));
+  
+  for (let i = 0; i < 9; i += 3) {
+    const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    for (let j = i; j < i + 3; j+=Math.ceil(Math.random() * 2)) {
+      for (let k = i; k < i + 3; k+= Math.ceil(Math.random() * 2)) {
+        const randomIndex = Math.floor(Math.random() * nums.length);
+        const num = nums[randomIndex];
+        board[j][k] = num;
+        generated[j][k] = true;
+        nums.splice(randomIndex, 1);
+      }
+    }
+  }
+  return [board, generated] ;
+}
+
 
 const getGame = (game) => {
   if (game === "tic") {
@@ -17,25 +38,9 @@ const getGame = (game) => {
     };
     return [new TicTacToe(), state];
   } else if (game === "chess") {
-    const state = {
-      rows: 8,
-      cols: 8,
-      gameName: "chess",
-      board: [
-        ["♜B", "♞B", "♝B", "♛B", "♚B", "♝B", "♞B", "♜B"],
-        ["♟B", "♟B", "♟B", "♟B", "♟B", "♟B", "♟B", "♟B"],
-        ["", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", ""],
-        ["♙W", "♙W", "♙W", "♙W", "♙W", "♙W", "♙W", "♙W"],
-        ["♖W", "♘W", "♗W", "♕W", "♔W", "♗W", "♘W", "♖W"],
-      ],
-      xIsNext: true,
-    };
-    return [new chess(), state];
+    return new chess();
   } else if (game === "queen") {
-    const state = {
+   const state = {
       rows: 8,
       cols: 8,
       gameName: "chess",
@@ -51,7 +56,6 @@ const getGame = (game) => {
       ],
     };
     return [new Queen_8(), state];
-
   }else if (game === "connect-4"){
     const state = {
       rows: 6,
@@ -67,25 +71,32 @@ const getGame = (game) => {
       winner : false
     };
     return [new Connect4(), state];
-
-  } else if (game === "checkers") {
+  }else if (game === "sudoku"){
+    const init = generateBoard();
+    const intialBoard = init[0];
+    console.log(intialBoard)
+    const unmod = init[1];
+    console.log(unmod)
     const state = {
-      rows: 8,
-      cols: 8,
-      xIsNext: true,
-      gameName: "checkers",
-      board: [
-        ["", "⚫", "", "⚫", "", "⚫", "", "⚫"],
-        ["⚫", "", "⚫", "", "⚫", "", "⚫", ""],
-        ["", "⚫", "", "⚫", "", "⚫", "", "⚫"],
-        ["", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", ""],
-        ["⚪", "", "⚪", "", "⚪", "", "⚪", ""],
-        ["", "⚪", "", "⚪", "", "⚪", "", "⚪"],
-        ["⚪", "", "⚪", "", "⚪", "", "⚪", ""],
-      ],
+      rows: 9,
+      cols: 9,
+      gameName: "sudoku",
+      board: intialBoard,
+      selectedRow: null ,
+      selectedCol: null ,
+      curNumber : null,
+      modify: [[false,false,false,false,false,false,false,false,false],
+               [false,false,false,false,false,false,false,false,false],
+               [false,false,false,false,false,false,false,false,false],
+               [false,false,false,false,false,false,false,false,false],
+               [false,false,false,false,false,false,false,false,false],
+               [false,false,false,false,false,false,false,false,false],
+               [false,false,false,false,false,false,false,false,false],
+               [false,false,false,false,false,false,false,false,false],
+               [false,false,false,false,false,false,false,false,false]],
+      unmodifyable : unmod
     };
-    return [new Checkers(), state];
+    return [new Sudoku(), state];
   }
 };
 const GameStarter = () => {
