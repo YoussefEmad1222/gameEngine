@@ -21,7 +21,7 @@ const GameWindow = () => {
           <Link to={`/game/${"sudoku"}`}>sudoku</Link>
         </li>
         <li className="menu-item">
-          <Link to={`/game/${"connect"}`}>connect4</Link>
+          <Link to={`/game/${"connect-4"}`}>connect4</Link>
         </li>
         <li className="menu-item">
           <Link to={`/game/${"checkers"}`}>checkers</Link>
