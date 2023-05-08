@@ -1,5 +1,5 @@
 import Game from '../gameClass';
-import React from "react";
+
 
 
 import "./sudoku.css";
@@ -137,7 +137,6 @@ export class Sudoku extends Game {
     }
     return [true, newState];  
   }
-
 }
 
 export default Sudoku;
