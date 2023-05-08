@@ -19,7 +19,7 @@ export class Game extends React.Component {
       }
       this.drawer(newState);
       this.gameStart(newState);
-    }, 3000);
+    }, 1000);
     return this.Init(state);
   }
 

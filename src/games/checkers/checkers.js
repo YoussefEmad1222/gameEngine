@@ -1,4 +1,4 @@
-import { Game } from "./gameClass.js";
+import { Game } from "../gameClass";
 import "./checkers.css";
 export class Checkers extends Game {
   checkersMoves(state, piece, x, y) {
@@ -80,7 +80,6 @@ export class Checkers extends Game {
     }
     var x = move.charCodeAt(0) - "1".charCodeAt(0);
     var y = move.charCodeAt(1) - "1".charCodeAt(0);
-    x = 8 - x - 1;
     if (x < 0 || x > 7 || y < 0 || y > 7) {
       return [false, newState];
     }
@@ -134,3 +133,4 @@ export class Checkers extends Game {
     }
   }
 }
+export default Checkers;

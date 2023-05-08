@@ -1,6 +1,5 @@
-//
 import { Game } from "./gameClass";
-import "./chess.css";
+import "./chess/chess.css";
 
 export class Queen_8 extends Game {
   controller(state, move) {
@@ -29,12 +28,8 @@ export class Queen_8 extends Game {
     if (move === "delete") {
       console.log("delete");
       const gameMove = prompt("Enter the position of the queen to delete");
-      var x = gameMove.charCodeAt(0) - "1".charCodeAt(0);
-      var y = gameMove.charCodeAt(1) - "a".charCodeAt(0);
-      x = 8 - x - 1;
-      if (x < 0 || x > 7 || y < 0 || y > 7) {
-        return [false, newState];
-      }
+      const x = parseInt(gameMove.charAt(0));
+      const y = parseInt(gameMove.charAt(1));
       if (state.board[x][y] !== "♛") {
         return [false, newState];
       }
@@ -65,12 +60,12 @@ export class Queen_8 extends Game {
           }
         }
       }
+
       console.log(newBoard);
       newState.board = newBoard;
       console.log(newState);
       return [true, newState];
     }
-
     if (move.length !== 2) {
       return [false, newState];
     }

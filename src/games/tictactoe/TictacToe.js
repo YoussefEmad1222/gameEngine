@@ -1,4 +1,4 @@
-import Game from "./gameClass";
+import Game from "../gameClass";
 import "./Tictactoe.css";
 
 export class TicTacToe extends Game {
@@ -10,21 +10,21 @@ export class TicTacToe extends Game {
       board: ["", "", "", "", "", "", "", "", ""],
       xIsNext: state.xIsNext,
     };
-    for (let i = 0; i < 9; i++) {
-      newState[i] = state.board[i];
-    }
-    if (move.length !== 2) {
-      return [false, newState];
-    }
-    const row = parseInt(move[0]);
-    const col = parseInt(move[1]);
+    const row = parseInt(move[0]) - 1;
+    const col = parseInt(move[1]) - 1;
     const idx = row * 3 + col;
-    if (idx < 0 || idx > 8 || newState[idx] !== "" || this.checkWinner(state)) {
+    if (row < 0 || row > 2 || col < 0 || col > 2) {
+      return [false, state];
+    }
+
+    if (newState.board[idx] !== "" || this.checkWinner(state)) {
       return [false, newState];
     }
 
-    newState[idx] = state.xIsNext ? "X" : "O";
-    newState.xIsNext = !state.xIsNext;
+    newState.board[idx] = state.xIsNext ? "X" : "O";
+    newState.xIsNext = !newState.xIsNext;
+    console.log(newState);
+    console.log(state);
     return [true, newState];
   }
 
