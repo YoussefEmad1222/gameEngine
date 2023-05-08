@@ -51,23 +51,23 @@ const getGame = (game) => {
       ],
     };
     return [new Queen_8(), state];
-
-  }else if (game === "connect-4"){
+  } else if (game === "connect-4") {
     const state = {
       rows: 6,
       cols: 7,
       gameName: "connect-4",
-      board: [["","","","","","",""],
-              ["","","","","","",""],
-              ["","","","","","",""],
-              ["","","","","","",""],
-              ["","","","","","",""],
-              ["","","","","","",""]],
+      board: [
+        ["", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", ""],
+      ],
       xIsNext: true,
-      winner : false
+      winner: false,
     };
     return [new Connect4(), state];
-
   } else if (game === "checkers") {
     const state = {
       rows: 8,
