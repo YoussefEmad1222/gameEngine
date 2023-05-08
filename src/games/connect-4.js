@@ -1,13 +1,11 @@
 import Game from "./gameClass";
 import React from "react";
-
-import "./Tictactoe.css";
 import "./connect-4.css";
 export class Connect4 extends Game {
   
   controller(state, move) {
     console.log(move);
-    const col = parseInt(move) - 1;
+    const col = parseInt(move[0]) - 1;
     console.log(col);
     console.log(state);
     let NewState = [["","","","","","",""],
@@ -22,19 +20,20 @@ export class Connect4 extends Game {
         }
     }
     let row , valid = false;
-    for(let x = 5 ; x >= 0 && !valid; x--){
+    for(let x = 5 ; x >= 0 && !valid && col < 7; x--){
         if(NewState[x][col] === ""){
             row = x;
             valid = true;
         } 
     }
-    if(valid === false){
+    if(valid === false || state.winner === true){
         const newState = {
             rows: 6,
             cols: 7,
             gameName: "connect-4",
             board: NewState,
-            xIsNext: xIsNext,
+            xIsNext: state.xIsNext,
+            winner: state.winner
         };
         return [false, newState];
     }
@@ -46,12 +45,14 @@ export class Connect4 extends Game {
         gameName: "connect-4",
         board: NewState,
         xIsNext: xIsNext,
+        winner: state.winner
     };
 
     console.log(newState);
     console.log(state);
     if(this.checkWinner(newState,row,col)){
         console.log(this.checkWinner(newState,row,col))
+        newState.winner = this.checkWinner(newState,row,col);
         return [false, newState];
     }
 
