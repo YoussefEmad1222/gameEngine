@@ -4,63 +4,32 @@ import React from "react";
 import "./Tictactoe.css";
 import "./sudoku.css";
 export class Sudoku extends Game {
-  /*constructor(props) {
-    super(props);
-    this.state = {
-      rows: 9,
-      cols: 9,
-      gameName: "sudoku",
-      board: [["","","","","","","","",""],
-              ["","","","","","","","",""],
-              ["","","","","","","","",""],
-              ["","","","","","","","",""],
-              ["","","","","","","","",""],
-              ["","","","","","","","",""],
-              ["","","","","","","","",""],
-              ["","","","","","","","",""],
-              ["","","","","","","","",""]],
-      selectedRow: null ,
-      selectedCol: null ,
-      curNumber : null,
-      modify: [[false,false,false,false,false,false,false,false,false],
-               [false,false,false,false,false,false,false,false,false],
-               [false,false,false,false,false,false,false,false,false],
-               [false,false,false,false,false,false,false,false,false],
-               [false,false,false,false,false,false,false,false,false],
-               [false,false,false,false,false,false,false,false,false],
-               [false,false,false,false,false,false,false,false,false],
-               [false,false,false,false,false,false,false,false,false],
-               [false,false,false,false,false,false,false,false,false]],
-    };
-  }*/
-  /*drawer(state) {
-    if (state == null) {
-      return this.Init(
-        this.state.rows,
-        this.state.cols,
-        this.state.gameName,
-        this.state.board
-      );
-    } else {
-      this.drawAfterMove(state);
+    
+    drawer(state) {
+      const board = state.board;
+      const cells = document.getElementsByClassName("cellsudoku");
+      console.log("sad",state.modify,"adsadsad",state.board); 
+      for (let i = 0; i < cells.length; i++) {
+          cells[i].innerText = board[cells[i].id.charAt(0)][cells[i].id.charAt(1)]; 
+          console.log("text",board[cells[i].id.charAt(0)][cells[i].id.charAt(1)] ,"id",cells[i].id )
+          if(state.modify[cells[i].id.charAt(0)][cells[i].id.charAt(1)] === true){
+              cells[i].style.backgroundColor = "Red"
+          }else if(state.unmodifyable[cells[i].id.charAt(0)][cells[i].id.charAt(1)] === true){
+              cells[i].style.backgroundColor ="Yellow"
+          }else{
+              cells[i].style.backgroundColor ="White"
+          }
+      }
     }
-  }*/
-
-  /*controller(state, move) {
-    const row = parseInt(move.target.id.charAt(0));
-    const col = parseInt(move.target.id.charAt(1));
-    if (!this.validMove(state, row, col)) {
-      return;
-    }
-    this.makeMove(state, row, col);
-    this.drawer(state);
-  }*/
   
   controller(state, move) {
+    // valid move:  1a 1 : 9f 9 where (1) is the row,  
+    // (a) is the column and (9) is the input to the box
+    // clear move: 1a 0
     const row = parseInt(move[0]) - 1;
     const col = move.charCodeAt(1) - 97;
     const input = parseInt(move[3]);
-
+    
     console.log( "heeereee", move , row , col , input )
     let NewState = Array(9).fill().map(() => Array(9).fill(""));
     let NewModify = Array(9).fill().map(() => Array(9).fill(false));
@@ -115,15 +84,14 @@ export class Sudoku extends Game {
     
     // check for the row
     for(let i = 0 ; i < 9 ; i++){
-      console.log("saad", NewState[row][i], "aloo",NewState[row][col])
+        console.log("saad", NewState[row][i], "aloo",NewState[row][col])
       if(NewState[row][i] === NewState[row][col] 
           && (NewState[row][col] !== "") 
            && i !== col){
         NewModify[row][col] = true;
-        console.log("heeeeeeeeeeeeeee")
       }
     }
-
+    
     // check for the col
     for(let i = 0 ; i < 9 ; i++){
         if(NewState[i][col] === NewState[row][col] 
@@ -154,42 +122,25 @@ export class Sudoku extends Game {
         modify: NewModify,
         unmodifyable: NewUnmodify
     }
-    return [true, newState];
-    
-    
-    
-    
-    this.makeMove(state, row, col);
-    this.drawer(state);
+    return [true, newState];  
   }
 
 
-  validMove(state, row, col) {
-    let board = state.board
-    if(board[row][col] === "" || board[row][col] === null || state.curNumber === null){
-      state.selectedRow = row;
-      state.selectedCol = col;
-      console.log(row , col, state.curNumber)
-      state.modify[state.selectedRow][state.selectedCol] = false
-    }else{
-      return false ; 
-    }
-    return true;
-  }
-
+  
+  
   makeMove(state, row, col) {  
     state.board[state.selectedRow][state.selectedCol] = state.curNumber 
     console.log("make move",row , col, state.curNumber , state.board)
     for(let i = 0 ; i < 9 ; i++){
-      console.log("saad", state.board[state.selectedRow][i], "aloo",state.board[state.selectedRow][state.selectedCol])
+        console.log("saad", state.board[state.selectedRow][i], "aloo",state.board[state.selectedRow][state.selectedCol])
       if(state.board[state.selectedRow][i] === state.board[state.selectedRow][state.selectedCol] 
           && state.board[state.selectedRow][state.selectedCol] !== null 
            && i !== state.selectedCol){
         state.modify[state.selectedRow][state.selectedCol] = true;
-      }
+        }
     }
     for(let i = 0 ; i < 9 ; i++){
-      if(state.board[i][state.selectedCol] === state.board[state.selectedRow][state.selectedCol] 
+        if(state.board[i][state.selectedCol] === state.board[state.selectedRow][state.selectedCol] 
           &&  state.board[state.selectedRow][state.selectedCol] !== null
            && i !== state.selectedRow){
         state.modify[state.selectedRow][state.selectedCol] = true;
@@ -204,7 +155,7 @@ export class Sudoku extends Game {
             &&  state.board[state.selectedRow][state.selectedCol] !== null
             && i !== state.selectedRow
             && j !== state.selectedCol){
-            state.modify[state.selectedRow][state.selectedCol] = true;
+                state.modify[state.selectedRow][state.selectedCol] = true;
           }
       }
     }
@@ -212,27 +163,75 @@ export class Sudoku extends Game {
   }
 
   checkWinner(state){
-    
-  }
-
-  drawer(state) {
-    const board = state.board;
-    const cells = document.getElementsByClassName("cellsudoku");
-    console.log("sad",state.modify,"adsadsad",state.board); 
-    for (let i = 0; i < cells.length; i++) {
-      cells[i].innerText = board[cells[i].id.charAt(0)][cells[i].id.charAt(1)]; 
-      console.log("text",board[cells[i].id.charAt(0)][cells[i].id.charAt(1)] ,"id",cells[i].id )
-      if(state.modify[cells[i].id.charAt(0)][cells[i].id.charAt(1)] === true){
-        cells[i].style.backgroundColor = "Red"
-      }else if(state.unmodifyable[cells[i].id.charAt(0)][cells[i].id.charAt(1)] === true){
-        cells[i].style.backgroundColor ="Yellow"
-      }else{
-        cells[i].style.backgroundColor ="White"
-      }
-    }
+      
   }
   
- /* drawNumbers(row, col, gameName){
+  
+  
+  /*validMove(state, row, col) {
+      let board = state.board
+      if(board[row][col] === "" || board[row][col] === null || state.curNumber === null){
+          state.selectedRow = row;
+          state.selectedCol = col;
+          console.log(row , col, state.curNumber)
+          state.modify[state.selectedRow][state.selectedCol] = false
+        }else{
+            return false ; 
+        }
+        return true;
+    }
+    /*constructor(props) {
+      super(props);
+      this.state = {
+        rows: 9,
+        cols: 9,
+        gameName: "sudoku",
+        board: [["","","","","","","","",""],
+                ["","","","","","","","",""],
+                ["","","","","","","","",""],
+                ["","","","","","","","",""],
+                ["","","","","","","","",""],
+                ["","","","","","","","",""],
+                ["","","","","","","","",""],
+                ["","","","","","","","",""],
+                ["","","","","","","","",""]],
+        selectedRow: null ,
+        selectedCol: null ,
+        curNumber : null,
+        modify: [[false,false,false,false,false,false,false,false,false],
+                 [false,false,false,false,false,false,false,false,false],
+                 [false,false,false,false,false,false,false,false,false],
+                 [false,false,false,false,false,false,false,false,false],
+                 [false,false,false,false,false,false,false,false,false],
+                 [false,false,false,false,false,false,false,false,false],
+                 [false,false,false,false,false,false,false,false,false],
+                 [false,false,false,false,false,false,false,false,false],
+                 [false,false,false,false,false,false,false,false,false]],
+      };
+    }*/
+    /*drawer(state) {
+      if (state == null) {
+        return this.Init(
+          this.state.rows,
+          this.state.cols,
+          this.state.gameName,
+          this.state.board
+        );
+      } else {
+        this.drawAfterMove(state);
+      }
+    }*/
+    
+    /*controller(state, move) {
+      const row = parseInt(move.target.id.charAt(0));
+      const col = parseInt(move.target.id.charAt(1));
+      if (!this.validMove(state, row, col)) {
+        return;
+      }
+      this.makeMove(state, row, col);
+      this.drawer(state);
+    }*/
+  /* drawNumbers(row, col, gameName){
     
     const numberButtons = Array.from({ length: SIZE }, (_, index) => (
       <button
