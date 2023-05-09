@@ -28,11 +28,19 @@ export class Queen_8 extends Game {
     if (move === "delete") {
       console.log("delete");
       const gameMove = prompt("Enter the position of the queen to delete");
-      const x = parseInt(gameMove.charAt(0));
-      const y = parseInt(gameMove.charAt(1));
+      var x = gameMove.charCodeAt(0) - "1".charCodeAt(0);
+      var y = gameMove.charCodeAt(1) - "a".charCodeAt(0);
+      x = 8 - x - 1;
+      if (x < 0 || x > 7 || y < 0 || y > 7) {
+        return [false, newState];
+      }
+      if (gameMove.length !== 2) {
+        return [false, newState];
+      }
       if (state.board[x][y] !== "♛") {
         return [false, newState];
       }
+
       newState.board[x][y] = "";
       const newBoard = [
         ["", "", "", "", "", "", "", ""],

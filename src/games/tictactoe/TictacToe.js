@@ -13,11 +13,17 @@ export class TicTacToe extends Game {
     const row = parseInt(move[0]) - 1;
     const col = parseInt(move[1]) - 1;
     const idx = row * 3 + col;
+    for (let i = 0; i < newState.board.length; i++) {
+      newState.board[i] = state.board[i];
+    }
+    if (move.length !== 2) {
+      return [false, state];
+    }
     if (row < 0 || row > 2 || col < 0 || col > 2) {
       return [false, state];
     }
 
-    if (newState.board[idx] !== "" || this.checkWinner(state)) {
+    if (newState.board[idx] !== "") {
       return [false, newState];
     }
 
@@ -33,30 +39,6 @@ export class TicTacToe extends Game {
     for (let i = 0; i < cells.length; i++) {
       cells[i].innerText = state.board[i];
     }
-  }
-
-  checkWinner(state) {
-    const win = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-    ];
-    for (let i = 0; i < win.length; i++) {
-      const [a, b, c] = win[i];
-      if (
-        state.board[a] &&
-        state.board[a] === state.board[b] &&
-        state.board[a] === state.board[c]
-      ) {
-        return true;
-      }
-    }
-    return false;
   }
 }
 export default TicTacToe;
