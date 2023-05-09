@@ -51,21 +51,18 @@ export class Sudoku extends Game {
         NewUnmodify[i][j] = state.unmodifyable[i][j];
       }
     }
-    if (
-      row > 9 ||
-      col > 9 ||
-      row < 0 ||
-      col < 0 ||
-      input < 0 ||
-      input > 9 ||
-      move.length < 4
-    ) {
-      const newState = {
-        board: NewState,
-        modify: NewModify,
-        unmodifyable: NewUnmodify,
-      };
-      return [false, newState];
+    if(row > 9 || col > 9 ||
+        row < 0 || col < 0 ||
+         input < 0 || input > 9 || move.length < 4){
+        const newState = {
+            rows: 9,
+            cols: 9,
+            gameName: "sudoku",
+            board: NewState,
+            modify: NewModify,
+            unmodifyable: NewUnmodify
+        };
+        return [false, newState];
     }
     let valid = true;
     if (
