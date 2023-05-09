@@ -40,7 +40,10 @@ export class Sudoku extends Game {
     }
     if(row > 9 || col > 9 ||
         row < 0 || col < 0 ||
-         input < 0 || input > 9 || move.length < 4){
+         input < 0 || input > 9 || 
+          move.length !== 4 ||
+           move.charAt(2) !== ' '
+         ){
         const newState = {
             rows: 9,
             cols: 9,
