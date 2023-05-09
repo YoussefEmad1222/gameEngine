@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { Game } from "../gameClass";
 import "./chess.css";
+import React from "react";
 export class chess extends Game {
   getMoves(state, piece, x, y) {
     if (piece == "♟B") {
@@ -322,9 +323,6 @@ export class chess extends Game {
   }
   controller(state, move) {
     const newStates = {
-      rows: 8,
-      cols: 8,
-      gameName: "queen",
       board: [
         ["", "", "", "", "", "", "", ""],
         ["", "", "", "", "", "", "", ""],
@@ -378,6 +376,29 @@ export class chess extends Game {
     console.log(newStates.xIsNext);
 
     return [true, newStates];
+  }
+  Init(gameState) {
+    const intialBoard = gameState.board;
+    const board = this.drawBoard(8, 8, "chess");
+    const clonedrows = board.props.children.map((row) => {
+      const clonedCells = row.props.children.map((cell) => {
+        return React.cloneElement(cell, {
+          children:
+            intialBoard[parseInt(cell.props.id.charAt(0))][
+              parseInt(cell.props.id.charAt(1))
+            ],
+        });
+      });
+      return React.cloneElement(row, {}, clonedCells);
+    });
+    return (
+      <div>
+        <h1 className="tic" style={{ textAlign: "center" }}>
+          "chess"
+        </h1>
+        <div className={"chessboard"}>{clonedrows}</div>
+      </div>
+    );
   }
 }
 

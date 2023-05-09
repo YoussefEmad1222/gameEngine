@@ -31,9 +31,6 @@ export class Connect4 extends Game {
     }
     if (valid === false || win === true || move.length !== 1) {
       const newState = {
-        rows: 6,
-        cols: 7,
-        gameName: "connect-4",
         board: NewState,
         xIsNext: state.xIsNext,
         winner: win,
@@ -43,9 +40,6 @@ export class Connect4 extends Game {
     NewState[row][col] = state.xIsNext ? "R" : "Y";
     let xIsNext = !state.xIsNext;
     const newState = {
-      rows: 6,
-      cols: 7,
-      gameName: "connect-4",
       board: NewState,
       xIsNext: xIsNext,
       winner: win,
@@ -201,6 +195,29 @@ export class Connect4 extends Game {
     } else {
       return false;
     }
+  }
+  Init(gameState) {
+    const intialBoard = gameState.board;
+    const board = this.drawBoard(6, 7, "connect-4");
+    const clonedrows = board.props.children.map((row) => {
+      const clonedCells = row.props.children.map((cell) => {
+        return React.cloneElement(cell, {
+          children:
+            intialBoard[parseInt(cell.props.id.charAt(0))][
+              parseInt(cell.props.id.charAt(1))
+            ],
+        });
+      });
+      return React.cloneElement(row, {}, clonedCells);
+    });
+    return (
+      <div>
+        <h1 className="connect-4" style={{ textAlign: "center" }}>
+          "connect-4"
+        </h1>
+        <div className={"connectboard"}>{clonedrows}</div>
+      </div>
+    );
   }
 }
 export default Connect4;

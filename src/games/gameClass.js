@@ -3,6 +3,7 @@ import React from "react";
 export class Game extends React.Component {
   drawer(state) {}
   controller(state, move) {}
+
   gameStart(state) {
     let gameMove = null;
     setTimeout(() => {
@@ -44,6 +45,7 @@ export class Game extends React.Component {
     }
     return <div className="board">{board}</div>;
   }
+
   Init(gameState) {
     const rows = gameState.rows;
     const cols = gameState.cols;
@@ -61,7 +63,6 @@ export class Game extends React.Component {
       });
       return React.cloneElement(row, {}, clonedCells);
     });
-
     return (
       <div>
         <h1 className={gameName} style={{ textAlign: "center" }}>

@@ -1,5 +1,6 @@
 import { Game } from "../gameClass";
 import "./checkers.css";
+import React from "react";
 export class Checkers extends Game {
   checkersMoves(state, piece, x, y) {
     const moves = [];
@@ -55,10 +56,9 @@ export class Checkers extends Game {
   }
   controller(state, move) {
     const newState = {
-      rows: 8,
-      cols: 8,
+      
       xIsNext: state.xIsNext,
-      gameName: "checkers",
+    
       board: [
         ["", "", "", "", "", "", "", ""],
         ["", "", "", "", "", "", "", ""],
@@ -132,6 +132,29 @@ export class Checkers extends Game {
     for (let i = 0; i < cells.length; i++) {
       cells[i].innerText = board[cells[i].id.charAt(0)][cells[i].id.charAt(1)];
     }
+  }
+  Init(gameState) {
+    const intialBoard = gameState.board;
+    const board = this.drawBoard(8, 8, "checkers");
+    const clonedrows = board.props.children.map((row) => {
+      const clonedCells = row.props.children.map((cell) => {
+        return React.cloneElement(cell, {
+          children:
+            intialBoard[parseInt(cell.props.id.charAt(0))][
+              parseInt(cell.props.id.charAt(1))
+            ],
+        });
+      });
+      return React.cloneElement(row, {}, clonedCells);
+    });
+    return (
+      <div>
+        <h1 className="checkers" style={{ textAlign: "center" }}>
+          "checkers"
+        </h1>
+        <div className={"checkersboard"}>{clonedrows}</div>
+      </div>
+    );
   }
 }
 export default Checkers;

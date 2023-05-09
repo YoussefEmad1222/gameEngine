@@ -1,12 +1,10 @@
 import { Game } from "./gameClass";
 import "./chess/chess.css";
-
+import React from "react";
 export class Queen_8 extends Game {
   controller(state, move) {
     const newState = {
-      rows: 8,
-      cols: 8,
-      gameName: "chess",
+
       board: [
         ["", "", "", "", "", "", "", ""],
         ["", "", "", "", "", "", "", ""],
@@ -125,6 +123,29 @@ export class Queen_8 extends Game {
       }
     }
     return moves;
+  }
+  Init(gameState) {
+    const intialBoard = gameState.board;
+    const board = this.drawBoard(8, 8, "chess");
+    const clonedrows = board.props.children.map((row) => {
+      const clonedCells = row.props.children.map((cell) => {
+        return React.cloneElement(cell, {
+          children:
+            intialBoard[parseInt(cell.props.id.charAt(0))][
+              parseInt(cell.props.id.charAt(1))
+            ],
+        });
+      });
+      return React.cloneElement(row, {}, clonedCells);
+    });
+    return (
+      <div>
+        <h1 className="sudoku" style={{ textAlign: "center" }}>
+          "8 QUEENS"
+        </h1>
+        <div className={"chessboard"}>{clonedrows}</div>
+      </div>
+    );
   }
 }
 export default Queen_8;

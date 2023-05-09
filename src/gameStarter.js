@@ -34,18 +34,12 @@ const generateBoard = () => {
 const getGame = (game) => {
   if (game === "tic") {
     const state = {
-      rows: 3,
-      cols: 3,
-      gameName: "tic",
       board: ["", "", "", "", "", "", "", "", ""],
       xIsNext: true,
     };
     return [new TicTacToe(), state];
   } else if (game === "chess") {
     const state = {
-      rows: 8,
-      cols: 8,
-      gameName: "chess",
       board: [
         ["♜B", "♞B", "♝B", "♛B", "♚B", "♝B", "♞B", "♜B"],
         ["♟B", "♟B", "♟B", "♟B", "♟B", "♟B", "♟B", "♟B"],
@@ -61,9 +55,6 @@ const getGame = (game) => {
     return [new chess(), state];
   } else if (game === "queen") {
     const state = {
-      rows: 8,
-      cols: 8,
-      gameName: "chess",
       board: [
         ["", "", "", "", "", "", "", ""],
         ["", "", "", "", "", "", "", ""],
@@ -78,9 +69,6 @@ const getGame = (game) => {
     return [new Queen_8(), state];
   } else if (game === "connect-4") {
     const state = {
-      rows: 6,
-      cols: 7,
-      gameName: "connect-4",
       board: [
         ["", "", "", "", "", "", ""],
         ["", "", "", "", "", "", ""],
@@ -101,9 +89,6 @@ const getGame = (game) => {
     const intialBoard = sudoku.getMat();
     const unmod = sudoku.getUnModify();
     const state = {
-      rows: 9,
-      cols: 9,
-      gameName: "sudoku",
       board: intialBoard,
       selectedRow: null,
       selectedCol: null,
@@ -124,10 +109,7 @@ const getGame = (game) => {
     return [new Sudoku(), state];
   } else if (game === "checkers") {
     const state = {
-      rows: 8,
-      cols: 8,
       xIsNext: true,
-      gameName: "checkers",
       board: [
         ["", "⚫", "", "⚫", "", "⚫", "", "⚫"],
         ["⚫", "", "⚫", "", "⚫", "", "⚫", ""],

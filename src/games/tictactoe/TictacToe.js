@@ -1,12 +1,9 @@
 import Game from "../gameClass";
 import "./Tictactoe.css";
-
+import React from "react";
 export class TicTacToe extends Game {
   controller(state, move) {
     const newState = {
-      rows: 3,
-      cols: 3,
-      gameName: "tic",
       board: ["", "", "", "", "", "", "", "", ""],
       xIsNext: state.xIsNext,
     };
@@ -39,6 +36,29 @@ export class TicTacToe extends Game {
     for (let i = 0; i < cells.length; i++) {
       cells[i].innerText = state.board[i];
     }
+  }
+  Init(gameState) {
+    const intialBoard = gameState.board;
+    const board = this.drawBoard(3, 3, "tic");
+    const clonedrows = board.props.children.map((row) => {
+      const clonedCells = row.props.children.map((cell) => {
+        return React.cloneElement(cell, {
+          children:
+            intialBoard[parseInt(cell.props.id.charAt(0))][
+              parseInt(cell.props.id.charAt(1))
+            ],
+        });
+      });
+      return React.cloneElement(row, {}, clonedCells);
+    });
+    return (
+      <div>
+        <h1 className="tic" style={{ textAlign: "center" }}>
+          "X & O"
+        </h1>
+        <div className={"ticboard"}>{clonedrows}</div>
+      </div>
+    );
   }
 }
 export default TicTacToe;
