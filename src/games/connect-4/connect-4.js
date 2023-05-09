@@ -213,7 +213,7 @@ export class Connect4 extends Game {
     return (
       <div>
         <h1 className="connect-4" style={{ textAlign: "center" }}>
-          "connect-4"
+          connect-4
         </h1>
         <div className={"connectboard"}>{clonedrows}</div>
       </div>

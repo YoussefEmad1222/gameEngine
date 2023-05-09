@@ -54,7 +54,7 @@ export class TicTacToe extends Game {
     return (
       <div>
         <h1 className="tic" style={{ textAlign: "center" }}>
-          "X & O"
+          X & O
         </h1>
         <div className={"ticboard"}>{clonedrows}</div>
       </div>

@@ -168,7 +168,7 @@ export class Sudoku extends Game {
     return (
       <div>
         <h1 className="sudoku" style={{ textAlign: "center" }}>
-          "sudoku"
+          sudoku
         </h1>
         <div className={"sudokuboard"}>{clonedrows}</div>
       </div>

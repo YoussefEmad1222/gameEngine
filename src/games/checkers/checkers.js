@@ -150,7 +150,7 @@ export class Checkers extends Game {
     return (
       <div>
         <h1 className="checkers" style={{ textAlign: "center" }}>
-          "checkers"
+          checkers
         </h1>
         <div className={"checkersboard"}>{clonedrows}</div>
       </div>

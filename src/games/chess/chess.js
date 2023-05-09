@@ -394,7 +394,7 @@ export class chess extends Game {
     return (
       <div>
         <h1 className="tic" style={{ textAlign: "center" }}>
-          "chess"
+          chess
         </h1>
         <div className={"chessboard"}>{clonedrows}</div>
       </div>
