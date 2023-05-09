@@ -147,7 +147,8 @@ const GameStarter = () => {
   const game = getGame(games.id);
   const gameState = game[1];
   const gameClass = game[0];
-  return gameClass.gameStart(gameState);
+  gameClass.gameStart(gameState);
+  return gameClass.Init(gameState);
 };
 
 export default GameStarter;

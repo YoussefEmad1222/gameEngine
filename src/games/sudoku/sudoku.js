@@ -4,7 +4,6 @@ import Game from '../gameClass';
 
 import "./sudoku.css";
 export class Sudoku extends Game {
-    
     drawer(state) {
       const board = state.board;
       const cells = document.getElementsByClassName("cellsudoku");
@@ -21,7 +20,6 @@ export class Sudoku extends Game {
           }
       }
     }
-  
   controller(state, move) {
     // valid move:  1a 1 : 9f 9 where (1) is the row,  
     // (a) is the column and (9) is the input to the box
@@ -29,7 +27,6 @@ export class Sudoku extends Game {
     const row = parseInt(move[0]) - 1;
     const col = move.charCodeAt(1) - 97;
     const input = parseInt(move[3]);
-    
     console.log( "heeereee", move , row , col , input )
     let NewState = Array(9).fill().map(() => Array(9).fill(""));
     let NewModify = Array(9).fill().map(() => Array(9).fill(false));

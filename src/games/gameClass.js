@@ -2,9 +2,7 @@ import React from "react";
 
 export class Game extends React.Component {
   drawer(state) {}
-
   controller(state, move) {}
-
   gameStart(state) {
     let gameMove = null;
     setTimeout(() => {
@@ -20,7 +18,6 @@ export class Game extends React.Component {
       this.drawer(newState);
       this.gameStart(newState);
     }, 1000);
-    return this.Init(state);
   }
 
   drawBoard(row, col, gameName) {

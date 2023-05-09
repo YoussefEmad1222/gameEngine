@@ -80,6 +80,7 @@ export class Checkers extends Game {
     }
     var x = move.charCodeAt(0) - "1".charCodeAt(0);
     var y = move.charCodeAt(1) - "1".charCodeAt(0);
+    console.log(x, y);
     if (x < 0 || x > 7 || y < 0 || y > 7) {
       return [false, newState];
     }
@@ -94,10 +95,10 @@ export class Checkers extends Game {
     const moves = this.checkersMoves(newState, piece, x, y);
     console.log(moves);
     const dest = prompt("Enter destination");
-    const destX = parseInt(dest.charAt(0));
-    const destY = parseInt(dest.charAt(1));
-
-    if (moves.includes(dest)) {
+    const destX = parseInt(dest.charAt(0)) - 1;
+    const destY = parseInt(dest.charAt(1)) - 1;
+    console.log(destX, destY);
+    if (moves.includes(destX + "" + destY)) {
       if (piece === "⚫") {
         if (destX === x + 2 && destY === y + 2) {
           newState.board[x + 1][y + 1] = "";

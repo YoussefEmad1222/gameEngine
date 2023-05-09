@@ -26,7 +26,6 @@ export class Queen_8 extends Game {
     }
 
     if (move === "delete") {
-      console.log("delete");
       const gameMove = prompt("Enter the position of the queen to delete");
       var x = gameMove.charCodeAt(0) - "1".charCodeAt(0);
       var y = gameMove.charCodeAt(1) - "a".charCodeAt(0);
@@ -40,7 +39,6 @@ export class Queen_8 extends Game {
       if (state.board[x][y] !== "♛") {
         return [false, newState];
       }
-
       newState.board[x][y] = "";
       const newBoard = [
         ["", "", "", "", "", "", "", ""],
@@ -69,9 +67,7 @@ export class Queen_8 extends Game {
         }
       }
 
-      console.log(newBoard);
       newState.board = newBoard;
-      console.log(newState);
       return [true, newState];
     }
     if (move.length !== 2) {
@@ -99,8 +95,6 @@ export class Queen_8 extends Game {
   }
 
   drawer(state) {
-    console.log(state.board);
-    console.log("drawer");
     const board = state.board;
     const cells = document.getElementsByClassName("cellchess");
     for (let i = 0; i < cells.length; i++) {
