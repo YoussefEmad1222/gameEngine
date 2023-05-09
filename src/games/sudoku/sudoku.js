@@ -51,9 +51,30 @@ export class Sudoku extends Game {
         NewUnmodify[i][j] = state.unmodifyable[i][j];
       }
     }
+<<<<<<< HEAD
+    if (
+      row > 9 ||
+      col > 9 ||
+      row < 0 ||
+      col < 0 ||
+      input < 0 ||
+      input > 9 ||
+      move.length !== 4 ||
+      move.charAt(2) !== " "
+    ) {
+      const newState = {
+        board: NewState,
+        modify: NewModify,
+        unmodifyable: NewUnmodify,
+      };
+      return [false, newState];
+=======
     if(row > 9 || col > 9 ||
         row < 0 || col < 0 ||
-         input < 0 || input > 9 || move.length < 4){
+         input < 0 || input > 9 || 
+          move.length !== 4 ||
+           move.charAt(2) !== ' '
+         ){
         const newState = {
             rows: 9,
             cols: 9,
@@ -63,6 +84,7 @@ export class Sudoku extends Game {
             unmodifyable: NewUnmodify
         };
         return [false, newState];
+>>>>>>> bc0acabeac6ce113261bf154690d8b239da7865d
     }
     let valid = true;
     if (
