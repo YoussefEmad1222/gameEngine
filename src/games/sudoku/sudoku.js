@@ -32,7 +32,7 @@ export class Sudoku extends Game {
     // (a) is the column and (9) is the input to the box
     // clear move: 1a 0
     const row = move.charCodeAt(0) - "1".charCodeAt(0);
-    const col = move.charCodeAt(1) - "a".charCodeAt(0); 
+    const col = move.charCodeAt(1) - "a".charCodeAt(0);
     const input = move.charCodeAt(3) - "0".charCodeAt(0);
     console.log("heeereee", move, row, col, input);
     let NewState = Array(9)
