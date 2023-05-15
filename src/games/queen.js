@@ -141,7 +141,7 @@ export class Queen_8 extends Game {
     return (
       <div>
         <h1 className="sudoku" style={{ textAlign: "center" }}>
-          "8 QUEENS"
+          8 QUEENS
         </h1>
         <div className={"chessboard"}>{clonedrows}</div>
       </div>

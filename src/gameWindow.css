@@ -133,8 +133,8 @@ body {
   width: inherit;
   height: inherit;
   line-height: 80px;
-  color: rgba(255, 255, 255, 0.7);
-  background: #adcde6;
+  color: rgb(255, 255, 255);
+  background: #96b1c7;
   border-radius: 50%;
   text-align: center;
   text-decoration: none;

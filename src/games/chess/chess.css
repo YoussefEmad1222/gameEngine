@@ -25,13 +25,13 @@
   background-color: rgb(194, 191, 191);
 }
 .rowchess:nth-child(odd) .cellchess:nth-child(even) {
-  background-color: #6681b2;
+  background-color: #4d638c;
 }
 .rowchess:nth-child(even) .cellchess:nth-child(odd):hover {
   background-color: #4d638c;
 }
 .rowchess:nth-child(even) .cellchess:nth-child(odd) {
-  background-color: #6681b2;
+  background-color: #4d638c;
 }
 .rowchess:nth-child(odd) .cellchess:nth-child(even):hover {
   background-color: #4d638c;
