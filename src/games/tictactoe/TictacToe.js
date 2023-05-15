@@ -7,8 +7,8 @@ export class TicTacToe extends Game {
       board: ["", "", "", "", "", "", "", "", ""],
       xIsNext: state.xIsNext,
     };
-    const row = parseInt(move[0]) - 1;
-    const col = parseInt(move[1]) - 1;
+    const row = move.charCodeAt(0) - "1".charCodeAt(0);
+    const col = move.charCodeAt(1) - "1".charCodeAt(0);
     const idx = row * 3 + col;
     for (let i = 0; i < newState.board.length; i++) {
       newState.board[i] = state.board[i];

@@ -4,7 +4,7 @@ import "./connect-4.css";
 export class Connect4 extends Game {
   controller(state, move) {
     console.log(move);
-    const col = parseInt(move[0]) - 1;
+    const col = move.charCodeAt(0) - "1".charCodeAt(0);
     console.log(col);
     console.log(state);
     let NewState = [
