@@ -63,8 +63,10 @@ export class Connect4 extends Game {
       cells[i].innerText = board[cells[i].id.charAt(0)][cells[i].id.charAt(1)];
       if (board[cells[i].id.charAt(0)][cells[i].id.charAt(1)] === "R") {
         cells[i].style.backgroundColor = "Red";
+        cells[i].style.color = "Red";
       } else if (board[cells[i].id.charAt(0)][cells[i].id.charAt(1)] === "Y") {
         cells[i].style.backgroundColor = "Yellow";
+        cells[i].style.color = "Yellow";
       }
     }
   }

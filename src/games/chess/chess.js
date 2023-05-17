@@ -5,25 +5,25 @@ import "./chess.css";
 import React from "react";
 export class chess extends Game {
   getMoves(state, piece, x, y) {
-    if (piece == "♟B") {
+    if (piece === "♟B") {
       return this.pawnMovesB(state, x, y);
     }
-    if (piece == "♙W") {
+    if (piece === "♙W") {
       return this.pawnMovesW(state, x, y);
     }
-    if (piece == "♜B" || piece == "♖W") {
+    if (piece === "♜B" || piece === "♖W") {
       return this.rookMoves(state, x, y);
     }
-    if (piece == "♞B" || piece == "♘W") {
+    if (piece === "♞B" || piece === "♘W") {
       return this.knightMoves(state, x, y);
     }
-    if (piece == "♝B" || piece == "♗W") {
+    if (piece === "♝B" || piece === "♗W") {
       return this.bishopMoves(state, x, y);
     }
-    if (piece == "♛B" || piece == "♕W") {
+    if (piece === "♛B" || piece === "♕W") {
       return this.queenMoves(state, x, y);
     }
-    if (piece == "♚B" || piece == "♔W") {
+    if (piece === "♚B" || piece === "♔W") {
       return this.kingMoves(state, x, y);
     }
   }
@@ -33,24 +33,24 @@ export class chess extends Game {
     y = parseInt(y);
     if (x + 1 < 8) {
       const cell1 = state.board[x + 1][y];
-      if (cell1 == "") {
+      if (cell1 === "") {
         moves.push(x + 1 + "" + y);
         if (x + 2 < 8) {
           const cell4 = state.board[x + 2][y];
-          if (cell4 == "" && x == 1) {
+          if (cell4 === "" && x === 1) {
             moves.push(x + 2 + "" + y);
           }
         }
       }
       if (y + 1 < 8) {
         const cell2 = state.board[x + 1][y + 1];
-        if (cell2 != "" && cell2.charAt(1) == "W") {
+        if (cell2 !== "" && cell2.charAt(1) === "W") {
           moves.push(x + 1 + "" + (y + 1));
         }
       }
       if (y - 1 >= 0) {
         const cell3 = state.board[x + 1][y - 1];
-        if (cell3 != "" && cell3.charAt(1) == "W") {
+        if (cell3 !== "" && cell3.charAt(1) === "W") {
           moves.push(x + 1 + "" + (y - 1));
         }
       }
@@ -63,24 +63,24 @@ export class chess extends Game {
     y = parseInt(y);
     if (x - 1 >= 0) {
       const cell1 = state.board[x - 1][y];
-      if (cell1 == "") {
+      if (cell1 === "") {
         moves.push(x - 1 + "" + y);
         if (x - 2 >= 0) {
           const cell4 = state.board[x - 2][y];
-          if (cell4 == "" && x == 6) {
+          if (cell4 === "" && x === 6) {
             moves.push(x - 2 + "" + y);
           }
         }
       }
       if (y + 1 < 8) {
         const cell2 = state.board[x - 1][y + 1];
-        if (cell2 != "" && cell2.charAt(1) == "B") {
+        if (cell2 !== "" && cell2.charAt(1) === "B") {
           moves.push(x - 1 + "" + (y + 1));
         }
       }
       if (y - 1 >= 0) {
         const cell3 = state.board[x - 1][y - 1];
-        if (cell3 != "" && cell3.charAt(1) == "B") {
+        if (cell3 !== "" && cell3.charAt(1) === "B") {
           moves.push(x - 1 + "" + (y - 1));
         }
       }
@@ -93,10 +93,10 @@ export class chess extends Game {
     y = parseInt(y);
     for (let i = x + 1; i < 8; i++) {
       const cell = state.board[i][y];
-      if (cell == "") {
+      if (cell === "") {
         moves.push(i + "" + y);
       } else {
-        if (state.board[i][y].charAt(1) != state.board[x][y].charAt(1)) {
+        if (state.board[i][y].charAt(1) !== state.board[x][y].charAt(1)) {
           moves.push(i + "" + y);
         }
         break;
@@ -104,10 +104,10 @@ export class chess extends Game {
     }
     for (let i = x - 1; i >= 0; i--) {
       const cell = state.board[i][y];
-      if (cell == "") {
+      if (cell === "") {
         moves.push(i + "" + y);
       } else {
-        if (state.board[i][y].charAt(1) != state.board[x][y].charAt(1)) {
+        if (state.board[i][y].charAt(1) !== state.board[x][y].charAt(1)) {
           moves.push(i + "" + y);
         }
         break;
@@ -115,10 +115,10 @@ export class chess extends Game {
     }
     for (let i = y + 1; i < 8; i++) {
       const cell = state.board[x][i];
-      if (cell == "") {
+      if (cell === "") {
         moves.push(x + "" + i);
       } else {
-        if (state.board[x][i].charAt(1) != state.board[x][y].charAt(1)) {
+        if (state.board[x][i].charAt(1) !== state.board[x][y].charAt(1)) {
           moves.push(x + "" + i);
         }
         break;
@@ -126,10 +126,10 @@ export class chess extends Game {
     }
     for (let i = y - 1; i >= 0; i--) {
       const cell = state.board[x][i];
-      if (cell == "") {
+      if (cell === "") {
         moves.push(x + "" + i);
       } else {
-        if (state.board[x][i].charAt(1) != state.board[x][y].charAt(1)) {
+        if (state.board[x][i].charAt(1) !== state.board[x][y].charAt(1)) {
           moves.push(x + "" + i);
         }
         break;
@@ -143,49 +143,49 @@ export class chess extends Game {
     y = parseInt(y);
     if (x + 1 < 8 && y - 2 >= 0) {
       const cell = state.board[x + 1][y - 2];
-      if (cell == "" || cell.charAt(1) != state.board[x][y].charAt(1)) {
+      if (cell === "" || cell.charAt(1) !== state.board[x][y].charAt(1)) {
         moves.push(x + 1 + "" + (y - 2));
       }
     }
     if (x - 1 >= 0 && y - 2 >= 0) {
       const cell = state.board[x - 1][y - 2];
-      if (cell == "" || cell.charAt(1) != state.board[x][y].charAt(1)) {
+      if (cell === "" || cell.charAt(1) !== state.board[x][y].charAt(1)) {
         moves.push(x - 1 + "" + (y - 2));
       }
     }
     if (x - 2 >= 0 && y - 1 >= 0) {
       const cell = state.board[x - 2][y - 1];
-      if (cell == "" || cell.charAt(1) != state.board[x][y].charAt(1)) {
+      if (cell === "" || cell.charAt(1) !== state.board[x][y].charAt(1)) {
         moves.push(x - 2 + "" + (y - 1));
       }
     }
     if (x + 2 < 8 && y - 1 >= 0) {
       const cell = state.board[x + 2][y - 1];
-      if (cell == "" || cell.charAt(1) != state.board[x][y].charAt(1)) {
+      if (cell === "" || cell.charAt(1) !== state.board[x][y].charAt(1)) {
         moves.push(x + 2 + "" + (y - 1));
       }
     }
     if (x + 2 < 8 && y + 1 < 8) {
       const cell = state.board[x + 2][y + 1];
-      if (cell == "" || cell.charAt(1) != state.board[x][y].charAt(1)) {
+      if (cell === "" || cell.charAt(1) !== state.board[x][y].charAt(1)) {
         moves.push(x + 2 + "" + (y + 1));
       }
     }
     if (x - 2 >= 0 && y + 1 < 8) {
       const cell = state.board[x - 2][y + 1];
-      if (cell == "" || cell.charAt(1) != state.board[x][y].charAt(1)) {
+      if (cell === "" || cell.charAt(1) !== state.board[x][y].charAt(1)) {
         moves.push(x - 2 + "" + (y + 1));
       }
     }
     if (x - 1 >= 0 && y + 2 < 8) {
       const cell = state.board[x - 1][y + 2];
-      if (cell == "" || cell.charAt(1) != state.board[x][y].charAt(1)) {
+      if (cell === "" || cell.charAt(1) !== state.board[x][y].charAt(1)) {
         moves.push(x - 1 + "" + (y + 2));
       }
     }
     if (x + 1 < 8 && y + 2 < 8) {
       const cell = state.board[x + 1][y + 2];
-      if (cell == "" || cell.charAt(1) != state.board[x][y].charAt(1)) {
+      if (cell === "" || cell.charAt(1) !== state.board[x][y].charAt(1)) {
         moves.push(x + 1 + "" + (y + 2));
       }
     }
@@ -197,10 +197,10 @@ export class chess extends Game {
     y = parseInt(y);
     for (let i = x + 1, j = y + 1; i < 8 && j < 8; i++, j++) {
       const cell = state.board[i][j];
-      if (cell == "") {
+      if (cell === "") {
         moves.push(i + "" + j);
       } else {
-        if (cell.charAt(1) != state.board[x][y].charAt(1)) {
+        if (cell.charAt(1) !== state.board[x][y].charAt(1)) {
           moves.push(i + "" + j);
         }
         break;
@@ -208,10 +208,10 @@ export class chess extends Game {
     }
     for (let i = x - 1, j = y + 1; i >= 0 && j < 8; i--, j++) {
       const cell = state.board[i][j];
-      if (cell == "") {
+      if (cell === "") {
         moves.push(i + "" + j);
       } else {
-        if (cell.charAt(1) != state.board[x][y].charAt(1)) {
+        if (cell.charAt(1) !== state.board[x][y].charAt(1)) {
           moves.push(i + "" + j);
         }
         break;
@@ -219,10 +219,10 @@ export class chess extends Game {
     }
     for (let i = x + 1, j = y - 1; i < 8 && j >= 0; i++, j--) {
       const cell = state.board[i][j];
-      if (cell == "") {
+      if (cell === "") {
         moves.push(i + "" + j);
       } else {
-        if (cell.charAt(1) != state.board[x][y].charAt(1)) {
+        if (cell.charAt(1) !== state.board[x][y].charAt(1)) {
           moves.push(i + "" + j);
         }
         break;
@@ -230,10 +230,10 @@ export class chess extends Game {
     }
     for (let i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--) {
       const cell = state.board[i][j];
-      if (cell == "") {
+      if (cell === "") {
         moves.push(i + "" + j);
       } else {
-        if (cell.charAt(1) != state.board[x][y].charAt(1)) {
+        if (cell.charAt(1) !== state.board[x][y].charAt(1)) {
           moves.push(i + "" + j);
         }
         break;
@@ -253,49 +253,49 @@ export class chess extends Game {
     y = parseInt(y);
     if (x + 1 < 8) {
       const cell = state.board[x + 1][y];
-      if (cell == "" || cell.charAt(1) != state.board[x][y].charAt(1)) {
+      if (cell === "" || cell.charAt(1) !== state.board[x][y].charAt(1)) {
         moves.push(x + 1 + "" + y);
       }
     }
     if (x - 1 >= 0) {
       const cell = state.board[x - 1][y];
-      if (cell == "" || cell.charAt(1) != state.board[x][y].charAt(1)) {
+      if (cell === "" || cell.charAt(1) !== state.board[x][y].charAt(1)) {
         moves.push(x - 1 + "" + y);
       }
     }
     if (y + 1 < 8) {
       const cell = state.board[x][y + 1];
-      if (cell == "" || cell.charAt(1) != state.board[x][y].charAt(1)) {
+      if (cell === "" || cell.charAt(1) !== state.board[x][y].charAt(1)) {
         moves.push(x + "" + (y + 1));
       }
     }
     if (y - 1 >= 0) {
       const cell = state.board[x][y - 1];
-      if (cell == "" || cell.charAt(1) != state.board[x][y].charAt(1)) {
+      if (cell === "" || cell.charAt(1) !== state.board[x][y].charAt(1)) {
         moves.push(x + "" + (y - 1));
       }
     }
     if (x + 1 < 8 && y + 1 < 8) {
       const cell = state.board[x + 1][y + 1];
-      if (cell == "" || cell.charAt(1) != state.board[x][y].charAt(1)) {
+      if (cell === "" || cell.charAt(1) !== state.board[x][y].charAt(1)) {
         moves.push(x + 1 + "" + (y + 1));
       }
     }
     if (x + 1 < 8 && y - 1 >= 0) {
       const cell = state.board[x + 1][y - 1];
-      if (cell == "" || cell.charAt(1) != state.board[x][y].charAt(1)) {
+      if (cell === "" || cell.charAt(1) !== state.board[x][y].charAt(1)) {
         moves.push(x + 1 + "" + (y - 1));
       }
     }
     if (x - 1 >= 0 && y + 1 < 8) {
       const cell = state.board[x - 1][y + 1];
-      if (cell == "" || cell.charAt(1) != state.board[x][y].charAt(1)) {
+      if (cell === "" || cell.charAt(1) !== state.board[x][y].charAt(1)) {
         moves.push(x - 1 + "" + (y + 1));
       }
     }
     if (x - 1 >= 0 && y - 1 >= 0) {
       const cell = state.board[x - 1][y - 1];
-      if (cell == "" || cell.charAt(1) != state.board[x][y].charAt(1)) {
+      if (cell === "" || cell.charAt(1) !== state.board[x][y].charAt(1)) {
         moves.push(x - 1 + "" + (y - 1));
       }
     }
@@ -304,9 +304,9 @@ export class chess extends Game {
   validMove(state, x, y) {
     const piece = state.board[x][y];
     if (
-      piece != "" &&
-      ((piece.charAt(1) == "W" && state.xIsNext) ||
-        (piece.charAt(1) == "B" && !state.xIsNext))
+      piece !== "" &&
+      ((piece.charAt(1) === "W" && state.xIsNext) ||
+        (piece.charAt(1) === "B" && !state.xIsNext))
     ) {
       return true;
     }
@@ -340,7 +340,7 @@ export class chess extends Game {
         newStates.board[i][j] = state.board[i][j];
       }
     }
-    if (move.length != 2) {
+    if (move.length !== 2) {
       return [false, newStates];
     }
     var xSrc = move.charCodeAt(0) - "1".charCodeAt(0);

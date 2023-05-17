@@ -34,7 +34,7 @@ export class Queen_8 extends Game {
       if (gameMove.length !== 2) {
         return [false, newState];
       }
-      if (state.board[x][y] !== "♛") {
+      if (state.board[x][y] !== "♕") {
         return [false, newState];
       }
       newState.board[x][y] = "";
@@ -51,8 +51,8 @@ export class Queen_8 extends Game {
 
       for (let i = 0; i < newState.board.length; i++) {
         for (let j = 0; j < newState.board.length; j++) {
-          if (newState.board[i][j] === "♛") {
-            newBoard[i][j] = "♛";
+          if (newState.board[i][j] === "♕") {
+            newBoard[i][j] = "♕";
             const moves = this.queenMove(i, j);
             for (let k = 0; k < moves.length; k++) {
               const row = parseInt(moves[k][0]);
@@ -77,10 +77,10 @@ export class Queen_8 extends Game {
     if (x < 0 || x > 7 || y < 0 || y > 7) {
       return [false, newState];
     }
-    if (newState.board[x][y] === "♛" || newState.board[x][y] === "✘") {
+    if (newState.board[x][y] === "♕" || newState.board[x][y] === "✘") {
       return [false, newState];
     }
-    newState.board[x][y] = "♛";
+    newState.board[x][y] = "♕";
     const moves = this.queenMove(x, y);
     for (let i = 0; i < moves.length; i++) {
       const row = parseInt(moves[i][0]);

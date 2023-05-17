@@ -2,6 +2,9 @@ import Game from "../gameClass";
 import "./Tictactoe.css";
 import React from "react";
 export class TicTacToe extends Game {
+
+
+
   controller(state, move) {
     const newState = {
       board: ["", "", "", "", "", "", "", "", ""],
@@ -19,24 +22,26 @@ export class TicTacToe extends Game {
     if (row < 0 || row > 2 || col < 0 || col > 2) {
       return [false, state];
     }
-
     if (newState.board[idx] !== "") {
       return [false, newState];
     }
-
-    newState.board[idx] = state.xIsNext ? "X" : "O";
+    newState.board[idx] = state.xIsNext ? "✘" : "⭕";
     newState.xIsNext = !newState.xIsNext;
     console.log(newState);
     console.log(state);
     return [true, newState];
   }
 
+
   drawer(state) {
     const cells = document.getElementsByClassName("celltic");
     for (let i = 0; i < cells.length; i++) {
       cells[i].innerText = state.board[i];
+      cells[i].style.color = state.board[i] === "✘" ? "navy" : "red";
     }
   }
+
+  
   Init(gameState) {
     const intialBoard = gameState.board;
     const board = this.drawBoard(3, 3, "tic");
@@ -61,4 +66,5 @@ export class TicTacToe extends Game {
     );
   }
 }
+
 export default TicTacToe;
